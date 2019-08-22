@@ -1,0 +1,296 @@
+<% include ../layout/header.ejs %>
+<!-- Header End -->
+
+<div id="maincontainer">
+  <section id="product">
+    <div class="container">
+     <!--  breadcrumb --> 
+      <ul class="breadcrumb">
+        <li>
+          <a href="#">Home</a>
+          <span class="divider">/</span>
+        </li>
+        <li class="active">Contact</li>
+      </ul>  
+      <!-- Contact Us-->
+      <h1 class="heading1"><span class="maintext">Contact</span><span class="subtext"> Contact Us for more</span></h1>
+      <div class="row">
+        <% if(success_msg != ''){ %> 
+            <div class="alert alert-success"><%= success_msg%></div>
+        <% } %>
+        <% if(errors) { %>
+        <div class="alert alert-danger">
+            <% errors.forEach(function(e){ %>
+
+                <%= e.msg %> <br/>
+            <%});%>
+
+        </div>
+        <% };%>
+        <div class="span9">
+          <form class="form-horizontal " action="" method="post">
+            <input type="hidden" id="point" name="point">
+            <input type="hidden" id="locker" name="locker">
+            <input type="hidden" id="size" value="Small" name="size">
+            <input type="hidden" id="receiver_name" name="receiver_name">
+            <input type="hidden" id="receiver_email" name="receiver_email">
+            <input type="hidden" id="receiver_phone" name="receiver_phone">
+            <input type="hidden" id="receiver_address" name="receiver_address">
+            <fieldset>
+              <div class="control-group">
+                <label for="name" class="control-label">Name <span class="required">*</span></label>
+                <div class="controls">
+                  <input type="text"  class="required" id="name" value="" name="name" required>
+                </div>
+              </div>
+              <div class="control-group">
+                <label for="email" class="control-label">Email <span class="required">*</span></label>
+                <div class="controls">
+                  <input type="email"  class="required email" id="email" value="" name="email" required>
+                </div>
+              </div>
+              <div class="control-group">
+                <label for="url" class="control-label">Phone <span class="required">*</span></label>
+                <div class="controls">
+                  <input type="text" id="phone" value="" name="phone" required>
+                </div>
+              </div>
+              <div class="control-group">
+                <label for="url" class="control-label">Address <span class="required">*</span></label>
+                <div class="controls">
+                  <input type="text" id="address" value="" name="address" required>
+                </div>
+              </div>
+              <div class="control-group">
+                <label for="message" class="control-label">Message</label>
+                <div class="controls">
+                  <textarea  class="required" rows="6" cols="40" id="message" name="message"></textarea>
+                </div>
+              </div>
+              <div class="control-group">
+                <label for="message" class="control-label">Payment</label>
+                <div class="controls">
+                  <input type="radio" name="payment" value='0' style="margin: 0px"> <span style="margin-right: 15px;">Online</span>
+                  <input type="radio" name="payment" value='1' checked style="margin: 0px"> <span style="margin-right: 15px;">Cod</span>
+                </div>
+              </div>
+              <div class="control-group">
+                <label for="message" class="control-label">Delivery</label>
+                <div class="controls">
+                  <input type="radio" name="type_delivery" value='0' style="margin: 0px"> <span style="margin-right: 15px;">Normal</span>
+                  <input type="radio" name="type_delivery" value='1' style="margin: 0px" id="use-redbox"> <span style="margin-right: 15px;">Use redbox</span>
+                </div>
+              </div>
+              <div class="form-actions">
+                <input class="btn btn-orange" type="submit" value="Submit" id="submit_id">
+                <input class="btn" type="reset" value="Reset">
+              </div>
+            </fieldset>
+          </form>
+        </div>
+        
+        <!-- Sidebar Start-->
+        <div class="span3">
+          <aside>
+            <div class="sidewidt">
+              <h2 class="heading2"><span>Contact Info</span></h2>
+              <p> Lorem Ipsum is simply<br>
+                Lorem Ipsum is simply<br>
+               Lorem Ipsum is simply<br>
+                <br>
+                Phone: (012) 333-7890<br>
+                Fax: (123) 444-7890<br>
+                Email: test@contactus.com<br>
+                Web: yourcompanyname.com<br>
+              </p>
+            </div>
+          </aside>
+        </div>
+        <!-- Sidebar End-->
+        
+      </div>
+    </div>
+  </section>
+</div>
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Points Map</h4>
+      </div>
+      <div class="modal-body" id="area-map" style="height: 300px">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="modalListLocker" class="modal fade" role="dialog" style="width: 30%;text-align: center;height: auto;max-height: unset;left: 35%;margin: 0px">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body" id="area-map">
+        <table style="float: left;width: 100%;">
+          <tbody>
+            
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="modalSize" class="modal fade" role="dialog" style="display: none; width: 20%;text-align: center;height: auto;max-height: unset;left: 40%;margin: 0px">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body" id="area-map">
+        <p>Choose size</p>
+        <select name="" id="" onchange="chooseSize(this)">
+          <option value="Small">Small</option>
+          <option value="Medium">Medium</option>
+          <option value="Large">Large</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Footer -->
+<% include ../layout/footer.ejs %>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6jm7ywUrjmC_wW2F0B0X75_skCBXmbjQ&sensor=false&libraries=places"></script>
+<script>
+  const stylesMap = [
+  {
+    "featureType": "administrative",
+    "elementType": "geometry",
+    "stylers": [
+      {
+          "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "stylers": [
+      {
+          "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "road",
+    "elementType": "labels.icon",
+    "stylers": [
+      {
+          "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "transit",
+    "stylers": [
+      {
+          "visibility": "off"
+      }
+    ]
+  }
+]
+  $('#use-redbox').click(function () {
+    $('#receiver_name').val($("#name").val())
+    $('#receiver_email').val($("#email").val())
+    $('#receiver_phone').val($("#phone").val())
+    $('#receiver_address').val($("#address").val())
+    if ($('#address').val() == '') {
+      alert("Address required")
+      return false
+    }
+    $("#myModal").modal();
+    $('#myModal').on('shown.bs.modal', function (e) {
+      showMapPoint()
+    })
+  })
+  function showMapPoint(argument) {
+    const map = new google.maps.Map(document.getElementById('area-map'), {
+      center: {lat: -34.397, lng: 150.644},
+      zoom: 11,
+      styles: stylesMap,
+    });
+    const geocoder = new google.maps.Geocoder();
+    geocoder.geocode({'address': $('#address').val()}, function(results, status) {
+      if (status === 'OK') {
+        let bounds = new google.maps.LatLngBounds();
+        let marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location,
+          icon: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
+        });
+        bounds.extend(marker.position);
+        $.post('/get-nearest-points', {
+          lat: results[0].geometry.location.lat(),
+          lng: results[0].geometry.location.lng(),
+        }, (r) => {
+          if (r.state) {
+            r.data.map(e => {
+              let marker = new google.maps.Marker({
+                map: map,
+                position: {
+                  lat: e.location.lat,
+                  lng: e.location.lng
+                },
+                title: e.name
+              });
+              bounds.extend(marker.position);
+              google.maps.event.addListener(marker, 'click', function() {
+                $('#point').val(e.id)
+                getLockerPoint(e.lockers)
+              })
+            })
+            map.fitBounds(bounds);
+          }
+        })
+      } else {
+        alert('Geocode was not successful for the following reason: ' + status);
+      }
+    });
+  }
+  function getLockerPoint(lockers) {
+    $('#modalListLocker tbody').html('')
+    lockers.map(e => {
+      $('#modalListLocker tbody').append(`
+        <tr>
+          <td>${e.name}</td>
+          <td><button onclick='chooseLocker("${e._id}")'>Choose This</button></td>
+        </tr>
+      `)
+    })
+    $("#myModal").modal('hide');
+    $("#modalListLocker").modal('show');
+  }
+  function chooseLocker(id) {
+    $('#locker').val(id)
+    $("#modalListLocker").modal('hide');
+    $("#modalSize").modal('show');
+  }
+  function chooseSize(ev) {
+    $('#size').val($(ev).val())
+  }
+</script>

@@ -1,0 +1,353 @@
+        <% include ../playout/header.ejs %>
+        <!-- END TOPBAR -->
+        <!-- START CONTAINER -->
+        <div class="page-container row-fluid container-fluid">
+            <!-- SIDEBAR - START -->
+           
+                 <% include ../playout/menu.ejs %>
+
+
+            <!--  SIDEBAR - END -->
+            <!-- START CONTENT -->
+            <section id="main-content" class=" ">
+            <section class="wrapper main-wrapper row" style=''>
+                <div class='col-xs-12'>
+                    <div class="page-title">
+                        <div class="pull-left">
+                            <h1 class="title">Edit shipment</h1>
+                        </div>
+                        <div class="pull-right hidden-xs">
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-xs-12">
+                    <section class="box ">
+                        <div class="content-body">
+                            <div class="row">
+                                <% if(success_msg != ''){ %> 
+                                    <div class="alert alert-success"><%= success_msg%></div>
+                               <% } %>
+                                <form action ="" method="post">
+                                    <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                                        <div class="form-group">
+                                            <label class="form-label" for="field-120334">Items</label>
+                                            <span class="desc"></span>
+                                            <div class="controls">
+                                                <input type="text" id="name" value="<%= data.items%>" class="form-control" name="items">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                                        <div class="form-group">
+                                            <label class="form-label" for="field-120334">Point</label>
+                                            <span class="desc"></span>
+                                            <div class="controls">
+                                                <input type="text" value="<%= data.point.hoster_name %>" class="form-control">
+                                                <input type="hidden" id="point" value="<%= data.point.id %>" class="form-control" name="point">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                                        <div class="form-group">
+                                            <label class="form-label" for="field-120334">Locker</label>
+                                            <span class="desc"></span>
+                                            <div class="controls">
+                                                <input type="text" value="<%= data.locker.name %>" class="form-control">
+                                                <input type="hidden" id="locker" value="<%= data.locker.id %>" class="form-control" name="locker">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                                        <div class="form-group">
+                                            <label class="form-label" for="field-120334">Sender name</label>
+                                            <span class="desc"></span>
+                                            <div class="controls">
+                                                <input type="text" value="<%= data.sender.name %>" class="form-control" name="sender_name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                                        <div class="form-group">
+                                            <label class="form-label" for="field-120334">Sender email</label>
+                                            <span class="desc"></span>
+                                            <div class="controls">
+                                                <input type="text" value="<%= data.sender.email %>" class="form-control" name="sender_email">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                                        <div class="form-group">
+                                            <label class="form-label" for="field-120334">Sender phone</label>
+                                            <span class="desc"></span>
+                                            <div class="controls">
+                                                <input type="text" value="<%= data.sender.phone %>" class="form-control" name="sender_phone">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                                        <div class="form-group">
+                                            <label class="form-label" for="field-120334">Sender address</label>
+                                            <span class="desc"></span>
+                                            <div class="controls">
+                                                <input type="text" value="<%= data.sender.address %>" class="form-control" name="sender_address">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                                        <div class="form-group">
+                                            <label class="form-label" for="field-120334">Receiver name</label>
+                                            <span class="desc"></span>
+                                            <div class="controls">
+                                                <input type="text" value="<%= data.receiver.name %>" class="form-control" name="receiver_name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                                        <div class="form-group">
+                                            <label class="form-label" for="field-120334">Receiver email</label>
+                                            <span class="desc"></span>
+                                            <div class="controls">
+                                                <input type="text" value="<%= data.receiver.email %>" class="form-control" name="receiver_email">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                                        <div class="form-group">
+                                            <label class="form-label" for="field-120334">Receiver phone</label>
+                                            <span class="desc"></span>
+                                            <div class="controls">
+                                                <input type="text" value="<%= data.receiver.phone %>" class="form-control" name="receiver_phone">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                                        <div class="form-group">
+                                            <label class="form-label" for="field-120334">Receiver address</label>
+                                            <span class="desc"></span>
+                                            <div class="controls">
+                                                <input type="text" id="address" value="<%= data.receiver.address %>" class="form-control" name="receiver_address">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                                        <div class="form-group">
+                                            <label class="form-label" for="field-120334">Cod currency</label>
+                                            <span class="desc"></span>
+                                            <div class="controls">
+                                                <input type="text" value="<%= data.cod.currency %>" class="form-control" name="cod_currency">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                                        <div class="form-group">
+                                            <label class="form-label" for="field-120334">Cod amount</label>
+                                            <span class="desc"></span>
+                                            <div class="controls">
+                                                <input type="text" value="<%= data.cod.amount %>" class="form-control" name="cod_amount">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                                        <div class="form-group">
+                                            <label class="form-label" for="field-120334">Size</label>
+                                            <span class="desc"></span>
+                                            <div class="controls">
+                                                <input type="text" id="size" value="<%= data.size %>" class="form-control" name="size">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                                        <div class="text-left">
+                                            <button type="submit" class="btn btn-primary">Save</button>
+                                            <button type="button" class="btn">Cancel</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                </div>
+                            </div>
+                    </section>
+                    </div>
+            </section>
+        </section>
+            <!-- END CONTENT -->
+            <div class="chatapi-windows ">
+            </div>
+<% include ../playout/footer.ejs %>
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Points Map</h4>
+      </div>
+      <div class="modal-body" id="area-map" style="height: 300px">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="modalListLocker" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body" id="area-map" style="height: 300px">
+        <table style="float: left;width: 100%;">
+          <tbody>
+            
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="modalSize" class="modal fade" role="dialog" style="display: none">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body" id="area-map" style="height: 300px">
+        <p>Choose size</p>
+        <select name="" id="" onchange="chooseSize(this)">
+          <option value="Small">Small</option>
+          <option value="Medium">Medium</option>
+          <option value="Large">Large</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6jm7ywUrjmC_wW2F0B0X75_skCBXmbjQ&sensor=false&libraries=places"></script>
+<script>
+  const stylesMap = [
+  {
+    "featureType": "administrative",
+    "elementType": "geometry",
+    "stylers": [
+      {
+          "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "stylers": [
+      {
+          "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "road",
+    "elementType": "labels.icon",
+    "stylers": [
+      {
+          "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "transit",
+    "stylers": [
+      {
+          "visibility": "off"
+      }
+    ]
+  }
+]
+  $('#point').prev().click(function () {
+    $("#myModal").modal();
+    $('#myModal').on('shown.bs.modal', function (e) {
+      showMapPoint()
+    })
+  })
+  function showMapPoint(argument) {
+    if ($('#address').val() == '') {
+      alert("Address required")
+      return false
+    }
+    const map = new google.maps.Map(document.getElementById('area-map'), {
+      center: {lat: -34.397, lng: 150.644},
+      zoom: 11,
+      styles: stylesMap,
+    });
+    const geocoder = new google.maps.Geocoder();
+    geocoder.geocode({'address': $('#address').val()}, function(results, status) {
+      if (status === 'OK') {
+        let bounds = new google.maps.LatLngBounds();
+        let marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location,
+          icon: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
+        });
+        bounds.extend(marker.position);
+        $.post('/get-nearest-points', {
+          lat: results[0].geometry.location.lat(),
+          lng: results[0].geometry.location.lng(),
+        }, (r) => {
+          if (r.state) {
+            r.data.map(e => {
+              let marker = new google.maps.Marker({
+                map: map,
+                position: {
+                  lat: e.location.lat,
+                  lng: e.location.lng
+                },
+                title: e.name
+              });
+              bounds.extend(marker.position);
+              google.maps.event.addListener(marker, 'click', function() {
+                $('#point').val(e.id)
+                getLockerPoint(e.lockers)
+              })
+            })
+            map.fitBounds(bounds);
+          }
+        })
+      } else {
+        alert('Geocode was not successful for the following reason: ' + status);
+      }
+    });
+  }
+  function getLockerPoint(lockers) {
+    $('#modalListLocker tbody').html('')
+    lockers.map(e => {
+      $('#modalListLocker tbody').append(`
+        <tr>
+          <td>${e.name}</td>
+          <td><button onclick='chooseLocker("${e._id}")'>Choose This</button></td>
+        </tr>
+      `)
+    })
+    $("#myModal").modal('hide');
+    $("#modalListLocker").modal('show');
+  }
+  function chooseLocker(id) {
+    $('#locker').val(id)
+    $("#modalListLocker").modal('hide');
+    $("#modalSize").modal('show');
+  }
+  function chooseSize(ev) {
+    $('#size').val($(ev).val())
+  }
+</script>
