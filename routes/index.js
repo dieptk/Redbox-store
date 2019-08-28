@@ -183,7 +183,7 @@ router.post('/get-nearest-points', function (req, res) {
 	var request = require('request');
 	request.get({
 		headers: {'content-type' : 'application/x-www-form-urlencoded', "Authorization": `Bearer ${key}`},
-		url: `${host}/api/business/v1/get-points?lat=${req.body.lat}&lng=${req.body.lng}&distance=10000`,
+		url: `${host}/api/business/v1/get-points?lat=${req.body.lat}&lng=${req.body.lng}&distance=10000000`,
 	}, function(error, response, body){
 		if (body) {
 			body = JSON.parse(body)
