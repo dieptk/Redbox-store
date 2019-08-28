@@ -230,7 +230,7 @@ router.get('/shipments/create-return/:id', checkAdmin, function (req, res) {
           headers: {'content-type' : 'application/x-www-form-urlencoded', "Authorization": `Bearer ${key}`},
           url: `${host}/api/business/v1/return-shipment`,
           method: "POST",
-          body: `shipment_id=${req.params.id}&items=${body.data.items}&size=${body.data.size}&point_id=${body.data.point.id}&locker_id=${body.data.locker.id}&cod_currency=${body.data.cod.currency}&cod_amount=${body.data.cod.amount}&sender_name=${body.data.sender.name}&sender_email=${body.data.sender.email}&sender_phone=${body.data.sender.phone}&sender_address=${body.data.sender.address}&receiver_name=${body.data.receiver.name}&receiver_email=${body.data.receiver.email}&receiver_phone=${body.data.receiver.phone}&receiver_address=${body.data.receiver.address}`
+          body: `shipment_id=${req.params.id}&items=${body.data.items}&size=${body.data.size}&point_id=${body.data.point.id}&locker_id=${body.data.locker.id}&cod_currency=${body.data.cod.currency}&cod_amount=${body.data.cod.amount}&sender_name=${body.data.receiver.name}&sender_email=${body.data.receiver.email}&sender_phone=${body.data.receiver.phone}&sender_address=${body.data.receiver.address}&receiver_name=${body.data.sender.name}&receiver_email=${body.data.sender.email}&receiver_phone=${body.data.sender.phone}&receiver_address=${body.data.sender.address}`
         }, function(error, response, body){
           if (body) {
             body = JSON.parse(body)
