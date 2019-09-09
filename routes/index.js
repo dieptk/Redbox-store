@@ -62,7 +62,7 @@ router.post('/dat-hang.html', function (req, res) {
 
 	if (req.body.type_delivery == '1') {
 		var request = require('request');
-		let body = `items=${items.toString()}&size=${req.body.size}&point_id=${req.body.point}&locker_id=${req.body.locker}&sender_name=Simple One&sender_email=simple_one@gmail.com&sender_phone=0986845623&sender_address=Ha Noi, Viet Nam&receiver_name=${req.body.receiver_name}&receiver_email=${req.body.receiver_email}&receiver_phone=${req.body.receiver_phone}&receiver_address=${req.body.receiver_address}`
+		let body = `reference=${new Date().getTime()}&items=${items.toString()}&size=${req.body.size}&point_id=${req.body.point}&locker_id=${req.body.locker}&sender_name=Simple One&sender_email=simple_one@gmail.com&sender_phone=0986845623&sender_address=Ha Noi, Viet Nam&receiver_name=${req.body.receiver_name}&receiver_email=${req.body.receiver_email}&receiver_phone=${req.body.receiver_phone}&receiver_address=${req.body.receiver_address}`
 		if (req.body.payment == '1') {
 			body += `&cod_currency=USD&cod_amount=${amount}`
 		}
