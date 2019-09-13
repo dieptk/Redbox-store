@@ -4,18 +4,20 @@
 <div id="maincontainer">
   <section id="product">
     <div class="container">
-     <!--  breadcrumb --> 
+     <!--  breadcrumb -->
       <ul class="breadcrumb">
         <li>
           <a href="#">Home</a>
           <span class="divider">/</span>
         </li>
         <li class="active">Contact</li>
-      </ul>  
+      </ul>
       <!-- Contact Us-->
-      <h1 class="heading1"><span class="maintext">Contact</span><span class="subtext"> Contact Us for more</span></h1>
+      <h1 class="heading1"><span class="maintext">Contact</span>
+<!--          <span class="subtext"> Contact Us for more</span>-->
+      </h1>
       <div class="row">
-        <% if(success_msg != ''){ %> 
+        <% if(success_msg != ''){ %>
             <div class="alert alert-success"><%= success_msg%></div>
         <% } %>
         <% if(errors) { %>
@@ -61,12 +63,15 @@
                   <input type="text" id="address" value="" name="address" required>
                 </div>
               </div>
-              <div class="control-group">
-                <label for="message" class="control-label">Message</label>
-                <div class="controls">
-                  <textarea  class="required" rows="6" cols="40" id="message" name="message"></textarea>
+<!--              <div class="control-group">-->
+<!--                <label for="message" class="control-label">Message</label>-->
+<!--                <div class="controls">-->
+<!--                  <textarea  class="required" rows="6" cols="40" id="message" name="message"></textarea>-->
+<!--                </div>-->
+<!--              </div>-->
+                <div>
+
                 </div>
-              </div>
               <div class="control-group">
                 <label for="message" class="control-label">Payment</label>
                 <div class="controls">
@@ -81,55 +86,184 @@
                   <input type="radio" name="type_delivery" value='1' style="margin: 0px" id="use-redbox"> <span style="margin-right: 15px;">Use redbox</span>
                 </div>
               </div>
-              <div class="form-actions">
-                <input class="btn btn-orange" type="submit" value="Submit" id="submit_id">
-                <input class="btn" type="reset" value="Reset">
-              </div>
+
+                <div class="control-group" style = "margin-top: -25px">
+                    <label for="message" class="control-label" style="visibility: hidden">Delivery</label>
+                    <div class="controls">
+                        <input type="radio" name="type_delivery" value='0' style="margin: 0px;visibility: hidden "> <span style="margin-right: 15px;visibility: hidden">Normal</span>
+                    </div>
+
+                    <div style="text-align: left ; margin-top: -25px;margin-left: -25px ;display: -webkit-flex; /* Safari */
+                        -webkit-flex-direction: column; /* Safari 6.1+ */
+                        display: flex; flex-direction: column;">
+                        <h4 style="color: red;font-weight: bold;font-size: 13px;margin-top: 3px;margin-left: -45px" id="namePointOutSide"></h4>
+                        <h4 style="color: grey;font-size: 12px;margin-top: -2px;margin-left: -45px" id="addressPointOutside"></h4>
+                    </div>
+
+                </div>
+<!--              <div class="form-actions">-->
+                <input class="btn btn-orange" type="submit" value="Submit" id="submit_id"
+                    style="margin-left: 250px">
+<!--                <input class="btn" type="reset" value="Reset">-->
+<!--              </div>-->
             </fieldset>
           </form>
         </div>
-        
-        <!-- Sidebar Start-->
-        <div class="span3">
-          <aside>
-            <div class="sidewidt">
-              <h2 class="heading2"><span>Contact Info</span></h2>
-              <p> Lorem Ipsum is simply<br>
-                Lorem Ipsum is simply<br>
-               Lorem Ipsum is simply<br>
-                <br>
-                Phone: (012) 333-7890<br>
-                Fax: (123) 444-7890<br>
-                Email: test@contactus.com<br>
-                Web: yourcompanyname.com<br>
-              </p>
-            </div>
-          </aside>
-        </div>
-        <!-- Sidebar End-->
-        
+
+<!--        &lt;!&ndash; Sidebar Start&ndash;&gt;-->
+<!--        <div class="span3">-->
+<!--          <aside>-->
+<!--            <div class="sidewidt">-->
+<!--              <h2 class="heading2"><span>Contact Info</span></h2>-->
+<!--              <p> Lorem Ipsum is simply<br>-->
+<!--                Lorem Ipsum is simply<br>-->
+<!--               Lorem Ipsum is simply<br>-->
+<!--                <br>-->
+<!--                Phone: (012) 333-7890<br>-->
+<!--                Fax: (123) 444-7890<br>-->
+<!--                Email: test@contactus.com<br>-->
+<!--                Web: yourcompanyname.com<br>-->
+<!--              </p>-->
+<!--            </div>-->
+<!--          </aside>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; Sidebar End&ndash;&gt;-->
+
       </div>
     </div>
   </section>
 </div>
 
-<div id="myModal" class="modal fade" role="dialog">
+<div id="myModal" class="modal fade" role="dialog" style="display: none;width: 930px;text-align: center;height: auto;max-height: unset;bottom: 3%;left: 15%;margin: 0px">
   <div class="modal-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" data-dismiss="modal" >&times;</button>
         <h4 class="modal-title">Points Map</h4>
       </div>
-      <div class="modal-body" id="area-map" style="height: 300px">
-        
+      <div class="modal-body" id="area-map" style="height: 1000px; width: 900px">
+
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <div class="modal-footer" style = "background-color: #bfbfbf; height: 45px;" >
+
+
+                  <div id="pointFooter" class="bgPoint">
+                    <div style=" flex: 2; text-align: center; margin-top: 5px">
+                        <i class="material-icons">store</i>
+                    </div>
+
+                      <div style=" flex: 5.5; text-align: left ; margin-top: 5px ;display: -webkit-flex; /* Safari */
+                        -webkit-flex-direction: column; /* Safari 6.1+ */
+                        display: flex; flex-direction: column;">
+                          <h4 style="color: red;font-weight: bold;font-size: 13px;margin-top: 3px" id="namePoint">RedBox</h4>
+                          <h4 style="color: grey;font-size: 12px;margin-top: -2px" id="addressPoint">Supermarket</h4>
+                      </div>
+                  </div>
       </div>
     </div>
 
+      <div id="pointFullFooter" class="bgFullPoint" style="position: absolute;height: 200px;bottom:-10px;left: 15px;display: none">
+
+          <div style="display: -webkit-flex; /* Safari */
+                        -webkit-flex-direction: row; /* Safari 6.1+ */
+                        display: flex; flex-direction: row; text-align: center;align-content: center;justify-content: center;align-items: center">
+              <div style=" flex: 2; text-align: center; margin-top: 5px">
+                  <i class="material-icons">store</i>
+              </div>
+              <div style=" flex: 5.5; text-align: left ; margin-top: 5px ;display: -webkit-flex; /* Safari */
+                            -webkit-flex-direction: column; /* Safari 6.1+ */
+                            display: flex; flex-direction: column;">
+                  <h4 style="color: red;font-weight: bold;font-size: 13px;margin-top: 3px" id="nameFullPoint">RedBox</h4>
+              </div>
+          </div>
+
+          <div style="display: -webkit-flex; /* Safari */
+                        -webkit-flex-direction: row; /* Safari 6.1+ */
+                        display: flex; flex-direction: row";>
+              <div style=" flex: 2; text-align: center">
+              </div>
+              <div style=" flex: 5.5; text-align: left ;display: -webkit-flex; /* Safari */
+                            -webkit-flex-direction: column; /* Safari 6.1+ */
+                            display: flex; flex-direction: column;">
+                  <h4 style="color: grey;font-weight: bold;font-size: 12px;margin-top: 0px" id="typeFullPoint">Supermarket</h4>
+              </div>
+          </div>
+
+          <div style="display: -webkit-flex; /* Safari */
+                        -webkit-flex-direction: row; /* Safari 6.1+ */
+                        display: flex; flex-direction: row";>
+              <div style=" flex: 2; text-align: center">
+
+              </div>
+              <div style=" flex: 5.5; text-align: left;display: -webkit-flex; /* Safari */
+                            -webkit-flex-direction: column; /* Safari 6.1+ */
+                            display: flex; flex-direction: column;">
+                  <h4 style="color: grey;font-weight: bold;font-size: 12px;margin-top: 0px" id="addressFullPoint">RedBox</h4>
+              </div>
+          </div>
+
+          <div style="display: -webkit-flex; /* Safari */
+                        -webkit-flex-direction: row; /* Safari 6.1+ */
+                        display: flex; flex-direction: row";>
+              <div style=" flex: 2; text-align: center">
+                  <i class="material-icons" style="font-size: 18px">timer</i>
+              </div>
+              <div style=" flex: 2; text-align: left;display: -webkit-flex; /* Safari */
+                            -webkit-flex-direction: column; /* Safari 6.1+ */
+                            display: flex; flex-direction: column;margin-top: 1px">
+                  <h4 style="color: red;font-weight: bold;font-size: 11px;margin-top: 0px" >Mo-Fr</h4>
+              </div>
+              <div style=" flex: 3.5; text-align: left;display: -webkit-flex; /* Safari */
+                            -webkit-flex-direction: column; /* Safari 6.1+ */
+                            display: flex; flex-direction: column;margin-top: 1px">
+                  <h4 style="color: grey;font-weight: bold;font-size: 10px;margin-top: 0px">9.00am-5.00pm</h4>
+              </div>
+          </div>
+
+          <div style="display: -webkit-flex; /* Safari */
+                        -webkit-flex-direction: row; /* Safari 6.1+ */
+                        display: flex; flex-direction: row";>
+              <div style=" flex: 2; text-align: center">
+              </div>
+              <div style=" flex: 2; text-align: left;display: -webkit-flex; /* Safari */
+                            -webkit-flex-direction: column; /* Safari 6.1+ */
+                            display: flex; flex-direction: column;margin-top: 1px">
+                  <h4 style="color: red;font-weight: bold;font-size: 11px;margin-top: 0px" >Sat</h4>
+              </div>
+              <div style=" flex: 3.5; text-align: left;display: -webkit-flex; /* Safari */
+                            -webkit-flex-direction: column; /* Safari 6.1+ */
+                            display: flex; flex-direction: column;margin-top: 1px">
+                  <h4 style="color: grey;font-weight: bold;font-size: 10px;margin-top: 0px">9.00am-5.00pm</h4>
+              </div>
+          </div>
+
+          <div style="display: -webkit-flex; /* Safari */
+                        -webkit-flex-direction: row; /* Safari 6.1+ */
+                        display: flex; flex-direction: row";>
+              <div style=" flex: 2; text-align: center">
+              </div>
+              <div style=" flex: 2; text-align: left;display: -webkit-flex; /* Safari */
+                            -webkit-flex-direction: column; /* Safari 6.1+ */
+                            display: flex; flex-direction: column;margin-top: 1px">
+                  <h4 style="color: red;font-weight: bold;font-size: 11px;margin-top: 0px" >Sun</h4>
+              </div>
+              <div style=" flex: 3.5; text-align: left;display: -webkit-flex; /* Safari */
+                            -webkit-flex-direction: column; /* Safari 6.1+ */
+                            display: flex; flex-direction: column;margin-top: 1px">
+                  <h4 style="color: grey;font-weight: bold;font-size: 10px;margin-top: 0px;text-align: center">Closed</h4>
+              </div>
+          </div>
+
+          <div style="background-color: red;height: 2px;" id="selectPoint" ;>
+              <button style="padding: 0;
+                border: none;
+                background: none;">
+                  <h4 style="text-align: center; font-size: 13px; padding-bottom: 20px; color: black">SELECT</h4>
+              </button>
+          </div>
+      </div>
   </div>
 </div>
 
@@ -141,7 +275,7 @@
       <div class="modal-body" id="area-map">
         <table style="float: left;width: 100%;">
           <tbody>
-            
+
           </tbody>
         </table>
       </div>
@@ -225,6 +359,7 @@
     }
     $("#myModal").modal();
     $('#myModal').on('shown.bs.modal', function (e) {
+
       showMapPoint()
     })
   })
@@ -236,6 +371,7 @@
     });
     const geocoder = new google.maps.Geocoder();
     geocoder.geocode({'address': $('#address').val()}, function(results, status) {
+        console.log("status",status);
       if (status === 'OK') {
         let bounds = new google.maps.LatLngBounds();
         let marker = new google.maps.Marker({
@@ -248,8 +384,18 @@
           lat: results[0].geometry.location.lat(),
           lng: results[0].geometry.location.lng(),
         }, (r) => {
+
           if (r.state) {
             r.data.map(e => {
+                console.log(e)
+                $("#namePoint").text(e.location_name + " - " + e.host_name);
+                $("#namePointOutSide").text(e.location_name + " - " + e.host_name);
+                $("#nameFullPoint").text(e.location_name + " - " + e.host_name);
+                $("#addressPoint").text(e.address.street );
+                $("#addressPointOutside").text(e.address.street );
+                $("#addressFullPoint").text(e.address.street );
+                $("#typeFullPoint").text(e.location_type );
+
               let marker = new google.maps.Marker({
                 map: map,
                 position: {
@@ -259,9 +405,30 @@
                 title: e.name
               });
               bounds.extend(marker.position);
-              google.maps.event.addListener(marker, 'click', function() {
-                $('#point').val(e.id)
-                getLockerPoint(e.lockers)
+              $(document).ready(function () {
+                  $("#pointFooter").on({
+                      mouseenter: function(){
+                          $("#pointFullFooter").show();
+                          $("#pointFooter").hide();
+                      }
+                  });
+                  $("#pointFullFooter").on({
+                      mouseleave: function () {
+                          $("#pointFooter").show();
+                          $("#pointFullFooter").hide();
+                      }
+                  });
+              });
+              // google.maps.event.addListener(marker, 'click', function() {
+              //   $('#point').val(e.id)
+              //
+              //   getLockerPoint(e.lockers)
+              //
+              // })
+              $(selectPoint).click(function () {
+                  $('#point').val(e.id)
+
+                  getLockerPoint(e.lockers)
               })
             })
             map.fitBounds(bounds);
@@ -273,22 +440,23 @@
     });
   }
   function getLockerPoint(lockers) {
-    $('#modalListLocker tbody').html('')
-    lockers.map(e => {
-      $('#modalListLocker tbody').append(`
-        <tr>
-          <td>${e.name}</td>
-          <td><button onclick='chooseLocker("${e._id}")'>Choose This</button></td>
-        </tr>
-      `)
-    })
+    // $('#modalListLocker tbody').html('')
+    lockers.map(e =>
+      // $('#modalListLocker tbody').append(`
+      //   <tr>
+      //     <td>${e.name}</td>
+      //     <td><button onclick='chooseLocker("${e._id}")'>Choose This</button></td>
+      //   </tr>
+      // `)
+        chooseLocker(e._id)
+    )
     $("#myModal").modal('hide');
-    $("#modalListLocker").modal('show');
+    // $("#modalListLocker").modal('show');
   }
   function chooseLocker(id) {
     $('#locker').val(id)
-    $("#modalListLocker").modal('hide');
-    $("#modalSize").modal('show');
+    // $("#modalListLocker").modal('hide');
+    // $("#modalSize").modal('show');
   }
   function chooseSize(ev) {
     $('#size').val($(ev).val())

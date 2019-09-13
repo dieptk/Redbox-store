@@ -4,40 +4,40 @@
 <div id="maincontainer">
   <section id="product">
     <div class="container">
-     <!--  breadcrumb --> 
+     <!--  breadcrumb -->
       <ul class="breadcrumb">
         <li>
           <a href="#">Home</a>
           <span class="divider">/</span>
         </li>
         <li class="active"> Shopping Cart</li>
-      </ul>       
+      </ul>
       <h1 class="heading1"><span class="maintext"> Shopping Cart</span><span class="subtext"> All items in your  Shopping Cart</span></h1>
       <!-- Cart-->
       <div class="cart-info">
         <table class="table table-striped table-bordered">
           <tr>
             <th class="image">Image</th>
-            <th class="name">Product Name</th>
-            <th class="quantity">Total</th>
-              <th class="total">Action</th>
-            <th class="price">Price</th>
-            <th class="total">Total money</th>
-           
+            <th class="name" style="text-align: center">Product Name</th>
+            <th class="quantity" style="text-align: center">Total</th>
+<!--              <th class="total">Action</th>-->
+            <th class="price" style="text-align: center">Price</th>
+            <th class="total" style="text-align: center">Total money</th>
+
           </tr>
-          <% var total = 0; if(data){ data.forEach(function(item){ total += item.tien %>
+          <% var total = 0; if(data){ data.forEach(function(item){ total = item.item.price %>
           <tr>
             <td class="image"><a href="/chi-tiet/<%= item.item.nameKhongDau%>.<%= item.item._id%>.<%= item.item.cateId%>.html"><img title="product" alt="product" src="upload/<%= item.item.img%>" height="50" width="50"></a></td>
-            <td  class="name"><a href="/chi-tiet/<%= item.item.nameKhongDau%>.<%= item.item._id%>.<%= item.item.cateId%>.html"><%= item.item.name%></a></td>
-            <td class="quantity"><input id="<%= item.item._id%>" type="text" size="1" value="<%= item.soluong%>" name="quantity[40]" class="span1">
-             
-             </td>
-             <td class="total"> <a href="#"><img  class="tooltip-test updateCart" id="<%= item.item._id%>" data-original-title="Update" src="img/update.png" alt=""></a>
-              <a href="#"><img class="tooltip-test delCart" id="<%= item.item._id%>" data-original-title="Remove"  src="img/remove.png" alt=""></a></td>
-    
-            <td class="price">$ <%= item.item.price%></td>
-            <td class="total">$ <%= item.tien%></td>
-             
+<!--            <td class="image"><a href="/chi-tiet/<%= item.item.nameKhongDau%>.<%= item.item._id%>.<%= item.item.cateId%>.html"><img title="product" alt="product" src="<%= item.item.img %>" height="50" width="50"></a></td>-->
+            <td  class="name" style="align-items: center;justify-self: center;text-align: center"><a href="/chi-tiet/<%= item.item.nameKhongDau%>.<%= item.item._id%>.<%= item.item.cateId%>.html"><%= item.item.name%></a></td>
+<!--            <td class="quantity"><input id="<%= item.item._id%>" type="text" size="1" value="<%= item.soluong%>" name="quantity[40]" class="span1"></td>-->
+              <td class="quantity" style="text-align: center"><a>1</a></td>
+<!--             <td class="total"> <a href="#"><img  class="tooltip-test updateCart" id="<%= item.item._id%>" data-original-title="Update" src="img/update.png" alt=""></a>-->
+<!--              <a href="#"><img class="tooltip-test delCart" id="<%= item.item._id%>" data-original-title="Remove"  src="img/remove.png" alt=""></a></td>-->
+
+            <td class="price" style="text-align: center">$ <%= item.item.price%></td>
+            <td class="total" style="text-align: center">$ <%= item.item.price%></td>
+
           </tr>
           <%})}%>
 
@@ -47,7 +47,7 @@
       <div class="pull-right">
           <div class="span4 pull-right">
             <table class="table table-striped table-bordered ">
-              
+
                 <td><span class="extra bold totalamout">Total :</span></td>
                 <td><span class="bold totalamout">$ <%= total%></span></td>
               </tr>

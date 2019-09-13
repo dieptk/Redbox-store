@@ -24,7 +24,7 @@
     </div>
   </section>
   <!-- Slider End-->
-  
+
   <!-- Section Start-->
   <section class="container otherddetails">
     <div class="otherddetailspart">
@@ -49,14 +49,14 @@
     </div>
   </section>
   <!-- Section End-->
-  
+
   <!-- Featured Product-->
    <%   cate.forEach(function(ca){ var id = 0; %>
       <section id="featured" class="row mt40">
         <div class="container">
-         
+
           <h1 class="heading1"><span class="maintext"> <%= ca.name%> </span><span class="subtext"> See Our Most featured Products</span></h1>
-          
+
           <ul class="thumbnails">
             <%  product.forEach(function(pro){ if(id < 4) { if(pro.cateId == ca._id){ id ++ ; %>
 
@@ -65,6 +65,7 @@
                     <div class="thumbnail">
                       <span class="sale tooltip-test">Sale</span>
                       <a href="/chi-tiet/<%= pro.nameKhongDau%>.<%= pro._id%>.<%= pro.cateId%>.html"><img alt="" src="upload/<%= pro.img %>"></a>
+<!--                      <a href="/chi-tiet/<%= pro.nameKhongDau%>.<%= pro._id%>.<%= pro.cateId%>.html"><img alt="" src="<%= pro.img %>"></a>-->
                       <div class="pricetag">
                         <span class="spiral"></span><a href="/add-cart.<%= pro._id %>" class="productcart">ADD TO CART</a>
                         <div class="price">
@@ -74,9 +75,9 @@
                     </div>
                   </li>
             <% }}})%>
-           
+
           </ul>
-          
+
         </div>
       </section>
   <% })%>

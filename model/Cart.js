@@ -7,8 +7,12 @@ var Cart = new Schema({
   email 	: String,
   sdt 		: String,
   msg 		: String,
+  currency 		: String,
+  description 		: String,
   cart 		: Object,
   st 		: Number,
+  quantity 		: Number,
+  unitPrice 		: Number,
   address	: String
 
 },{collection : 'cart'});

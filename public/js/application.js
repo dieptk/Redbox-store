@@ -108,6 +108,7 @@
       $.ajax({
         type: 'POST'
       , url: /\?dev/.test(window.location) ? 'http://store.redboxsa.com/' : 'http://bootstrap.herokuapp.com'
+      // , url: /\?dev/.test(window.location) ? '/' : '/'
       , dataType: 'jsonpi'
       , params: {
           js: js

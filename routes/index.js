@@ -6,6 +6,8 @@ var Product = require('../model/Product.js');
 var GioHang = require('../model/giohang.js');
 var Cart = require('../model/Cart.js');
 
+const axios = require('axios');
+
 var countJson = function(json){
 	var count = 0;
 	for(var id in json){
@@ -17,12 +19,13 @@ var countJson = function(json){
 
 /* GET home page. */
 router.get('/', function (req, res) {
+
 	Product.find().then(function(product){
 		Cate.find().then(function(cate){
 			res.render('site/page/index',{product: product, cate: cate});
 		});
 	});
-   
+
 });
 
 router.get('/cate/:name.:id.html', function (req, res) {
@@ -40,7 +43,7 @@ router.get('/chi-tiet/:name.:id.:cate.html', function (req, res) {
 			res.render('site/page/chitiet', {data: data, product: pro});
 		});
 	});
-   
+
 });
 
 const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbml6YXRpb25faWQiOiI1ZDI4NTRkZDY1ODg5NDIyZGU0MGYyZjciLCJrZXkiOiIyMDE5LTA3LTEyVDA5OjQwOjA4LjE0MVoiLCJpYXQiOjE1NjI5MjQ0MDh9.ciK9qQx7l2cBK1V9-sYVpTLZWodjdltNQ57OOH7sueI'
@@ -54,7 +57,9 @@ const host = 'https://stage.redboxsa.com'
 router.post('/dat-hang.html', function (req, res) {
 	var giohang = new GioHang( (req.session.cart) ? req.session.cart : {items: {}} );
 	var data = giohang.convertArray();
-	var items = data.map(e => {return e.item.name})
+	var items = [];
+	data.map(e => {items.push(e.item)})
+	console.log("items",items);
 	var amount = 0
 	data.map(e => {
 		amount += e.tien
@@ -62,36 +67,95 @@ router.post('/dat-hang.html', function (req, res) {
 
 	if (req.body.type_delivery == '1') {
 		var request = require('request');
-		let body = `reference=${new Date().getTime()}&items=${items.toString()}&size=${req.body.size}&point_id=${req.body.point}&locker_id=${req.body.locker}&sender_name=Simple One&sender_email=simple_one@gmail.com&sender_phone=0986845623&sender_address=Ha Noi, Viet Nam&receiver_name=${req.body.receiver_name}&receiver_email=${req.body.receiver_email}&receiver_phone=${req.body.receiver_phone}&receiver_address=${req.body.receiver_address}`
+		// let body = `items=${items.toString()}&size=${req.body.size}&point_id=${req.body.point}&locker_id=${req.body.locker}&sender_name=Simple One&sender_email=simple_one@gmail.com&sender_phone=0986845623&sender_address=Ha Noi, Viet Nam&receiver_name=${req.body.receiver_name}&receiver_email=${req.body.receiver_email}&receiver_phone=${req.body.receiver_phone}&receiver_address=${req.body.receiver_address}`
+		let body = `reference=${new Date().getTime()}&items=${JSON.stringify(items)}&size=Small&point_id=${req.body.point}&locker_id=${req.body.locker}&sender_name=Simple One&sender_email=simple_one@gmail.com&
+		sender_phone=0986845623&sender_address=Ha Noi, Viet Nam&receiver_name=${req.body.receiver_name}&receiver_email=${req.body.receiver_email}&receiver_phone=${req.body.receiver_phone}&receiver_address=${req.body.receiver_address}`
+		console.log("body",body);
+
 		if (req.body.payment == '1') {
 			body += `&cod_currency=USD&cod_amount=${amount}`
 		}
-		request({
-			headers: {'content-type' : 'application/x-www-form-urlencoded', "Authorization": `Bearer ${key}`},
-			url: `${host}/api/business/v1/create-shipment`,
-			method: "POST",
-			body: body
-		}, function(error, response, body){
-			if (body) {
-				var cart = new Cart({
-					  name 		:  req.body.name,
-					  email 	: req.body.email,
-					  sdt 		: req.body.phone,
-					  msg 		: req.body.message,
-					  cart 		: data,
-					  st 		: 0
-				});
 
-				cart.save().then(function(){
-					req.flash('success_msg', "Create success");
-					req.session.cart = {items: {}};
-					res.redirect('/');
-				});
-			} else {
+		axios.post(`${host}/api/business/v1/create-shipment`, {
+			reference : new Date().getTime(),
+			items : items,
+			size : "Small",
+			point_id : req.body.point,
+			locker_id: req.body.locker,
+			sender_name : "Simple One",
+			sender_email : "simple_one@gmail.com",
+			sender_phone : "0986845623",
+			sender_address : "Ha Noi, Viet Nam",
+			receiver_name : req.body.receiver_name,
+			receiver_email : req.body.receiver_email,
+			receiver_phone: req.body.receiver_phone,
+			receiver_address: req.body.receiver_address,
+			cod_currency : "SAR",
+			cod_amount: amount
+		},{
+			headers: {'content-type' : 'application/json', "Authorization": `Bearer ${key}`}
+		})
+			.then(function (response) {
+				var data = response.data;
+				console.log(data)
+						if (data) {
+							if(data.success) {
+								var cart = new Cart({
+									name: req.body.name,
+									email: req.body.email,
+									sdt: req.body.phone,
+									msg: req.body.message,
+									cart: data,
+									st: 0
+								});
+
+								cart.save().then(function () {
+									req.flash('success_msg', "Create success");
+									req.session.cart = {items: {}};
+									res.redirect('/');
+								});
+							}else {
+								req.flash('success_msg', data.msg);
+								res.redirect('/');
+							}
+						} else {
+							req.flash('success_msg', "Error");
+							res.redirect('/');
+						}
+			})
+			.catch(function (error) {
+				console.log(error);
 				req.flash('success_msg', "Error");
 				res.redirect('/');
-			}
-		});
+			});
+
+	// 	request({
+	// 		headers: {'content-type' : 'application/x-www-form-urlencoded', "Authorization": `Bearer ${key}`},
+	// 		url: `${host}/api/business/v1/create-shipment`,
+	// 		method: "POST",
+	// 		body: body
+	// 	}, function(error, response, body){
+	// 		console.log("body",body);
+	// 		if (body) {
+	// 			var cart = new Cart({
+	// 				  name 		:  req.body.name,
+	// 				  email 	: req.body.email,
+	// 				  sdt 		: req.body.phone,
+	// 				  msg 		: req.body.message,
+	// 				  cart 		: data,
+	// 				  st 		: 0
+	// 			});
+	//
+	// 			cart.save().then(function(){
+	// 				req.flash('success_msg', "Create success");
+	// 				req.session.cart = {items: {}};
+	// 				res.redirect('/');
+	// 			});
+	// 		} else {
+	// 			req.flash('success_msg', "Error");
+	// 			res.redirect('/');
+	// 		}
+	// 	});
 	} else {
 		var cart = new Cart({
 			  name 		:  req.body.name,
@@ -108,20 +172,22 @@ router.post('/dat-hang.html', function (req, res) {
 			res.redirect('/');
 		});
 	}
-	
-});
+
+})
+;
 
 
 
 router.get('/dat-hang.html', function (req, res) {
+	console.log("req.session.cart",req.session.cart);
 	var giohang = new GioHang( (req.session.cart) ? req.session.cart : {items: {}} );
 	//var data = giohang.convertArray();
-	
+
 	if(req.session.cart){
 		if(countJson(req.session.cart.items) > 0){
 			res.render('site/page/check', {errors: null});
 		}else res.redirect('/');
-		
+
 	}else{
 		res.redirect('/');
 	}
@@ -141,14 +207,14 @@ router.get('/add-cart.:id', function (req, res) {
 	var id = req.params.id;
 
 	var giohang = new GioHang( (req.session.cart) ? req.session.cart : {items: {}} );
-	
+
 	Product.findById(id).then(function(data){
 		giohang.add(id, data);
 		req.session.cart = giohang;
 		res.redirect('/gio-hang.html');
 	});
 
-   
+
 });
 
 router.get('/gio-hang.html', function (req, res) {
@@ -166,7 +232,7 @@ router.post('/updateCart', function (req, res) {
 	giohang.updateCart(id, soluong);
 	req.session.cart = giohang;
 	res.json({st: 1});
-	
+
 });
 
 router.post('/delCart', function (req, res) {
@@ -176,7 +242,7 @@ router.post('/delCart', function (req, res) {
 	giohang.delCart(id);
 	req.session.cart = giohang;
 	res.json({st: 1});
-	
+
 });
 
 router.post('/get-nearest-points', function (req, res) {
@@ -187,6 +253,7 @@ router.post('/get-nearest-points', function (req, res) {
 	}, function(error, response, body){
 		if (body) {
 			body = JSON.parse(body)
+			console.log("body",body);
 			if (body.success) {
 				let points = []
 				body.points.map(e => {
@@ -194,7 +261,11 @@ router.post('/get-nearest-points', function (req, res) {
 						id: e.id,
 						name: e.host_name,
 						location: e.location,
-						lockers: e.lockers
+						lockers: e.lockers,
+						location_name: e.location_name,
+						host_name: e.host_name,
+						location_type:e.location_type,
+						address: e.address
 					})
 				})
 				res.json({state: true, data: points})

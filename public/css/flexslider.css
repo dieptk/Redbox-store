@@ -9,16 +9,16 @@
  * Contributing author: Tyler Smith (@mbmufffin)
  */
 
- 
+
 /* Browser Resets */
 #mainslider { border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px; -o-border-radius:4px }
 .flex-container a:active, .flexslider a:active, .flex-container a:focus, .flexslider a:focus { outline: none; }
 .slides, .flex-control-nav, .flex-direction-nav { margin: 0; padding: 0; list-style: none; }
 /* FlexSlider Necessary Styles
-*********************************/ 
+*********************************/
 .flexslider { margin: 0; padding: 0; }
 .flexslider .slides > li { display: none; -webkit-backface-visibility: hidden; position:relative; border-radius:8px; -moz-border-radius:8px; -webkit-border-radius:8px; -o-border-radius:8px } /* Hide the slides before the JS is loaded. Avoids image jumping */
-.flexslider .slides img { width: 100%; display: block; }
+.flexslider .slides img { height : 450px; width: 100%; display: block; }
 .flex-pauseplay span { text-transform: capitalize; }
 /* Clearfix for the .slides element */
 .slides:after { content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0; }

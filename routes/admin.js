@@ -81,7 +81,7 @@ passport.use(new LocalStrategy({
 ));
 
 passport.serializeUser(function(email, done) {
-  
+
   done(null, email.id);
 });
 
@@ -138,7 +138,7 @@ router.get('/shipments/edit/:id', checkAdmin, function (req, res) {
     if (body) {
       body = JSON.parse(body)
       if (body.success) {
-        req.flash('success_msg', "Update success");    
+        req.flash('success_msg', "Update success");
         res.render('admin/shipment/edit', {data: body.data});
       } else {
         req.flash('success_msg', "Shipment not exist");
@@ -258,7 +258,7 @@ router.get('/shipments/create-return/:id', checkAdmin, function (req, res) {
 })
 
 function checkAdmin(req, res, next){
-   
+
     if(req.isAuthenticated()){
       next();
     }else{
