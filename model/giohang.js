@@ -1,7 +1,8 @@
 function GioHang (oldCart){
 	this.items = oldCart.items || {};
 	for(var id in this.items){
-		this.items[id].item.quantity = this.items[id].item.st;
+		// this.items[id].item.quantity = this.items[id].item.st;
+		this.items[id].item.quantity = 1;
 		this.items[id].item.description = this.items[id].item.des;
 		this.items[id].item.currency = "SAR";
 		this.items[id].item.unitPrice = this.items[id].item.price;
