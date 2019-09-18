@@ -2758,6 +2758,10 @@ table th {
     border-radius: 3px;
     cursor: pointer;
     box-shadow: 0 4px 12px rgba(42,65,232,0.15);
+    position: relative;
+}
+.td-nomal .select-this {
+    display: none
 }
 .delivery-page .type-delivery .td-nomal:hover{
     box-shadow: 0 4px 54px rgba(42,65,232,0.15);
@@ -2767,7 +2771,7 @@ table th {
     width: 100%;
 }
 .delivery-page .type-delivery .td-nomal.active {
-    border: 2px solid #009688
+    border: 2px solid red
 }
 .delivery-page .type-delivery .td-nomal .tdn-step-1 i{
     float: left;
@@ -2799,6 +2803,7 @@ table th {
     border-radius: 3px;
     box-shadow: 0 4px 12px rgba(42,65,232,0.15);
     cursor: pointer;
+    position: relative;
 }
 .td-redbox:hover {
     box-shadow: 0 4px 54px rgba(42,65,232,0.15);
@@ -2813,7 +2818,10 @@ table th {
     position: relative;
 }
 .td-redbox.active {
-    border: 2px solid #009688
+    border: 2px solid red
+}
+.td-redbox .select-this {
+    display: none
 }
 .td-redbox .tdr-step-1 i{
     float: left;
@@ -3185,4 +3193,21 @@ table th {
 }
 .pp-list-locker .per-locker button:hover {
     background: orange
+}
+.active .select-this {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    border-top: 15px solid #fff;
+    border-right: 15px solid #F00;
+    border-bottom: 15px solid #F00;
+    border-left: 15px solid #fff;
+    width: 0;
+    height: 0;
+    display: block;
+}
+.active .select-this i{
+    color: #fff;
+    line-height: 15px;
+    position: absolute;
 }
