@@ -3,7 +3,7 @@
 /* ------------ Reset ------------ */
 body {
     font-family: 'Open Sans', sans-serif;
-    color: #96979d;
+    color: black;
     font-size: 13px;
     margin: 0px;
     padding: 0px
@@ -2733,4 +2733,456 @@ table th {
     }
 
 
+}
+
+.delivery-page {
+    float: left;
+    width: 100%;
+}
+
+.delivery-page .type-delivery {
+    float: left;
+    width: 100%;
+    margin-top: 20px;
+}
+.dp-left {
+    float: left;
+    width: 70%
+}
+.delivery-page .type-delivery .td-nomal{
+    float: left;
+    width: 20%;
+    background: #fff;
+    padding: 20px;
+    border: 2px solid #fff;
+    border-radius: 3px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(42,65,232,0.15);
+}
+.delivery-page .type-delivery .td-nomal:hover{
+    box-shadow: 0 4px 54px rgba(42,65,232,0.15);
+}
+.delivery-page .type-delivery .td-nomal .tdn-step-1{
+    float: left;
+    width: 100%;
+}
+.delivery-page .type-delivery .td-nomal.active {
+    border: 2px solid #009688
+}
+.delivery-page .type-delivery .td-nomal .tdn-step-1 i{
+    float: left;
+    font-size: 15px;
+    line-height: 30px
+}
+#product {
+    background: #F8F8F8
+}
+.delivery-page .type-delivery .td-nomal .tdn-step-1 span{
+    font-size: 15px;
+    line-height: 30px;
+    margin-left: 10px;
+    float: left;
+    font-weight: bold
+}
+.delivery-page .type-delivery .td-nomal p{
+   float: left;
+   width: 100%;
+   margin: 0px;
+   line-height: 25px;
+}
+.td-redbox {
+    float: right;
+    width: 67%;
+    background: #fff;
+    padding: 20px;
+    border: 3px solid #fff;
+    border-radius: 3px;
+    box-shadow: 0 4px 12px rgba(42,65,232,0.15);
+    cursor: pointer;
+}
+.td-redbox:hover {
+    box-shadow: 0 4px 54px rgba(42,65,232,0.15);
+}
+.td-redbox .tdr-left {
+    float: left;
+    width: 50%;
+}
+.td-redbox .tdr-step-1{
+    float: left;
+    width: 100%;
+    position: relative;
+}
+.td-redbox.active {
+    border: 2px solid #009688
+}
+.td-redbox .tdr-step-1 i{
+    float: left;
+    font-size: 15px;
+    line-height: 30px
+}
+.td-redbox .tdr-step-1 span{
+    font-size: 15px;
+    line-height: 30px;
+    margin-left: 10px;
+    float: left;
+    font-weight: bold
+}
+.td-redbox .tdr-step-1 small{
+    position: absolute;
+    color: red;
+    font-size: 13px;
+    margin-left: 10px;
+}
+.td-redbox .tdr-left p{
+   float: left;
+   width: 100%;
+   margin: 0px;
+   line-height: 25px;
+}
+.td-redbox .tdr-right {
+    float: left;
+    width: 50%;
+}
+.td-redbox .tdr-right span{
+    float: left;
+    width: 100%;
+    font-size: 12px;
+    margin-top: 20px;
+}
+.delivery-page .info-receiver {
+    float: left;
+    width: 100%;
+    border-radius: 3px;
+    box-shadow: 0 4px 12px rgba(42,65,232,0.15);
+    background: #fff;
+    margin-top: 20px;
+    padding: 20px;
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box; 
+     box-sizing: border-box; 
+}
+.delivery-page .info-receiver .title{
+    float: left;
+    width: 100%;
+    font-size: 14px;
+    margin-bottom: 20px;
+    font-weight: bold
+}
+.delivery-page .info-receiver span {
+    margin-left: 10px;
+}
+.delivery-page .info-redbox {
+    float: left;
+    width: 100%;
+    border-radius: 3px;
+    box-shadow: 0 4px 12px rgba(42,65,232,0.15);
+    background: #fff;
+    margin-top: 20px;
+    padding: 20px;
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box; 
+    box-sizing: border-box;
+    border: 2px solid #009688;
+    display: none
+}
+.delivery-page .info-redbox .title{
+    float: left;
+    width: 100%;
+    font-size: 14px;
+    margin-bottom: 20px;
+    font-weight: bold
+}
+.delivery-page .info-redbox span {
+    margin-left: 10px;
+}
+.delivery-page .info-redbox .choose-point {
+    float: left;
+    width: 100%;
+    text-align: center;
+}
+.delivery-page .info-redbox .choose-point button {
+    display: inline-block;
+    padding: 0px 20px;
+    background: #009688;
+    color: #fff;
+    font-size: 13px;
+    line-height: 40px;
+    border: 0px;
+    border-radius: 3px;
+    box-shadow: 0 4px 12px rgba(42,65,232,0.15);
+}
+.delivery-page .info-redbox .choose-point .address-choose {
+    float: left;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px;
+    line-height: 25px
+}
+.delivery-page .info-receiver input {
+    float: left;
+    width: 30%;
+    margin-right: 1%;
+    margin-bottom: 15px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 13px;
+    border-radius: 2px;
+}
+.delivery-page .type-payment {
+    float: left;
+    width: 100%;
+    border-radius: 3px;
+    box-shadow: 0 4px 12px rgba(42,65,232,0.15);
+    background: #fff;
+    margin-top: 20px;
+    padding: 20px;
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box; 
+     box-sizing: border-box; 
+}
+.delivery-page .type-payment .title{
+    float: left;
+    width: 100%;
+    font-size: 14px;
+    margin-bottom: 20px;
+    font-weight: bold
+}
+.delivery-page .type-payment .title span {
+    margin-left: 10px;
+}
+
+.delivery-page .type-payment .step-payment {
+    float: left;
+    width: 200px;
+    padding: 0px 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-right: 20px;
+}
+.delivery-page .type-payment .step-payment.active {
+    border-color: #03A9F4;
+    color: #fff;
+    background: #03A9F4;
+}
+.delivery-page .type-payment .step-payment span {
+    line-height: 35px;
+}
+.delivery-page .type-payment .step-payment i {
+    float: right;
+    line-height: 35px;
+    font-size: 16px;
+}
+
+.delivery-page .list-items {
+    float: left;
+    width: 100%;
+    border-radius: 3px;
+    box-shadow: 0 4px 12px rgba(42,65,232,0.15);
+    background: #fff;
+    margin-top: 20px;
+    padding: 20px;
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box; 
+     box-sizing: border-box; 
+}
+.delivery-page .list-items .title{
+    float: left;
+    width: 100%;
+    font-size: 14px;
+    margin-bottom: 20px;
+    font-weight: bold
+}
+.delivery-page .list-items .title span {
+    margin-left: 10px;
+}
+.delivery-page .list-items .per-item {
+    float: left;
+    width: 50%;
+    margin-bottom: 20px;
+}
+.delivery-page .list-items .per-item img {
+    float: left;
+    width: 80px;
+    height: 80px;
+    margin-right: 20px;
+}
+.delivery-page .list-items .per-item .pi-info {
+    float: left;
+    width: calc(100% - 100px)
+}
+.delivery-page .list-items .per-item .pi-info b {
+    float: left;
+    width: 100%;
+    line-height: 25px;
+    text-transform: uppercase;
+    font-size: 15px
+}
+.delivery-page .list-items .per-item .pi-info span {
+    float: left;
+    width: 100%;
+    line-height: 25px;
+    font-size: 13px;
+}
+.delivery-page .dp-right {
+    float: right;
+    width: 28%;
+    box-shadow: 0 4px 12px rgba(42,65,232,0.15);
+    background: #fff;
+    padding: 20px;
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box; 
+     box-sizing: border-box;
+     margin-top: 20px;
+}
+.delivery-page .dp-right .title{
+    float: left;
+    width: 100%;
+    font-size: 14px;
+    margin-bottom: 20px;
+    font-weight: bold
+}
+.delivery-page .dp-right .title span{
+    margin-left: 10px;
+}
+.delivery-page .dp-right .content{
+    float: left;
+    width: 100%;
+}
+.delivery-page .dp-right .content .dp-right-c-step{
+    float: left;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.delivery-page .dp-right .content .dp-right-c-step .left{
+    float: left;
+}
+.delivery-page .dp-right .content .dp-right-c-step .right{
+    float: right;
+}
+.delivery-page .dp-right .content .dp-right-c-step-total {
+    font-weight: bold;
+    padding-top: 10px;
+    border-top: 1px solid #ccc;
+}
+.delivery-page .dp-right .create-order {
+    float: left;
+    width: 100%;
+    background: orange;
+    color: #fff;
+    font-size: 13px;
+    margin-top: 30px;
+    line-height: 40px;
+    border: 0px;
+    border-radius: 3px;
+}
+.p-per-point {
+    float: left;
+    width: 200px;
+    height: 1px;
+    position: relative;
+    margin-right: 30px;
+}
+.per-point {
+    float: left;
+    width: 100%;
+    padding: 10px;
+    background: #fff;
+    border-radius: 10px;
+    height: 40px;
+    overflow: hidden;
+    position: absolute;
+    bottom: -60px;
+}
+.per-point:hover {
+    cursor: pointer;
+    height: auto;
+}
+.per-point .pp-main{
+    float: left;
+    width: 100%;
+}
+.per-point .pp-main img{
+    width: 40px;
+    float: left;
+}
+.per-point .pp-main .pp-main-right{
+    float: left;
+    width: calc(100% - 50px);
+    text-align: left;
+    margin-left: 10px;
+}
+.per-point .pp-main .pp-main-right b{
+    float: left;
+    width: 100%;
+    color: #BB1E10;
+}
+.per-point .pp-main .pp-main-right span{
+    font-size: 12px;
+}
+.pp-more {
+    float: left;
+    width: 100%;
+    margin-bottom: 5px;
+}
+.ppm-address {
+    float: left;
+    width: 100%;
+    margin-top: 10px;
+}
+.ppm-address i{
+    float: left;
+    font-size: 16px;
+    width: 40px;
+    text-align: center;
+    color: #BB1E10;
+}
+.ppm-address span{
+    text-align: left;
+    float: left;
+    width: calc(100% - 50px);
+    margin-left: 10px;
+    font-size: 12px;
+}
+.per-point .select {
+    float: left;
+    width: calc(100% + 20px);
+    background: #BB1E10;
+    color: #fff;
+    border: 0px;
+    border-bottom-left-radius: 10px;
+    margin-left: -10px;
+    margin-bottom: -10px;
+    line-height: 40px;
+    border-bottom-right-radius: 10px;
+    margin-top: 10px
+}
+.pp-list-locker {
+    float: left;
+    width: 100%;
+    text-align: left;
+    border-top: 1px solid #f5f5f5;
+    display: none
+}
+.pp-list-locker .per-locker {
+    float: left;
+    width: 100%;
+    margin-top: 10px;
+}
+.pp-list-locker .per-locker span {
+    line-height: 20px;
+}
+.pp-list-locker .per-locker button {
+    float: right;
+    font-size: 11px;
+    line-height: 20px;
+    border: 0px;
+    border-radius: 3px;
+    color: #fff;
+    background: #FF5722;
+}
+.pp-list-locker .per-locker button:hover {
+    background: orange
 }
