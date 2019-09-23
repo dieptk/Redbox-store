@@ -18,7 +18,7 @@
 *********************************/
 .flexslider { margin: 0; padding: 0; }
 .flexslider .slides > li { display: none; -webkit-backface-visibility: hidden; position:relative; border-radius:8px; -moz-border-radius:8px; -webkit-border-radius:8px; -o-border-radius:8px } /* Hide the slides before the JS is loaded. Avoids image jumping */
-.flexslider .slides img { height : 450px; width: 100%; display: block; }
+.flexslider .slides img { height : 400px; width: 100%; display: block; }
 .flex-pauseplay span { text-transform: capitalize; }
 /* Clearfix for the .slides element */
 .slides:after { content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0; }
@@ -37,7 +37,7 @@ html[xmlns] .slides { display: block; }
 .carousel li { margin-right: 5px }
 .flexborder { background:#fff; margin-bottom:5px; margin-top:4px }
 /* Direction Nav */
-.flex-direction-nav a { width: 30px; height: 30px; margin: -20px 10px 0 10px; display: block; background: url(../img/bg_direction_nav.png) no-repeat 0 0; position: absolute; top: 55%; cursor: pointer; text-indent: -9999px; opacity: 0; -webkit-transition: all .3s ease;
+.flex-direction-nav a { width: 30px; height: 30px; margin: -20px 50px 0 50px; display: block; background: url(../img/bg_direction_nav.png) no-repeat 0 0; position: absolute; top: 55%; cursor: pointer; text-indent: -9999px; opacity: 1; -webkit-transition: all .3s ease;
 }
 .flex-direction-nav .flex-next { background-position: 100% 0; right: 0px; }
 .flex-direction-nav .flex-prev { left: 0px; }
@@ -46,10 +46,10 @@ html[xmlns] .slides { display: block; }
 .flexslider:hover .flex-next:hover, .flexslider:hover .flex-prev:hover { opacity: 1; }
 .flex-direction-nav .disabled { opacity: .3!important; filter:alpha(opacity=30); cursor: default; }
 /* Control Nav */
-.flex-control-nav { width: 100%; position: absolute; bottom: 15px; left:15px; overflow:hidden }
+.flex-control-nav { width: 100%; position: absolute; bottom: 15px; left:15px; overflow:hidden; text-align: center; bottom: 0px }
 .flex-control-nav li { margin: 0 6px; display: inline-block; zoom: 1; *display: inline;
 }
-.flex-control-paging li a { width: 10px; height: 10px; display: block; background: #5e626b; cursor: pointer; text-indent: 9999px; }
+.flex-control-paging li a { width: 10px; height: 10px; display: block; background: #5e626b; cursor: pointer; text-indent: 9999px; border-radius: 50%; }
 .flex-control-paging li a:hover { background: #333; background: #f25c27 }
 .flex-control-paging li a.flex-active { background: #000; background: #f25c27; cursor: default; }
 .flex-control-thumbs { margin: 5px 0 0; position: static; overflow: hidden; }
@@ -223,4 +223,9 @@ line-height:24px
 .flex-control-nav {
 bottom:15px
 }
+}
+body {
+	overflow-x: hidden;
+	background: #F9F9F9;
+	font-family: roboto;
 }

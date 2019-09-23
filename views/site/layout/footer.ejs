@@ -13,14 +13,16 @@
           <ul>
             <li class="phone"> +123 456 7890, +123 456 7890</li>
             <li class="mobile"> +123 456 7890, +123 456 78900</li>
-            <li class="email"> test@test.com</li>
-            <li class="email"> test@test.com</li>
+            <li class="email"> redboxsa@gmail.com</li>
           </ul>
         </div>
         <div class="span3 twitter">
-          <h2>Twitter </h2>
-          <div id="twitter">
-          </div>
+          <h2>Product </h2>
+          <ul>
+            <li> Redbox</li>
+            <li> Delivery</li>
+            <li> Best sale</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -82,9 +84,25 @@
     $(document).ready(function(){
         menu();
 
-        $('.updateCart').click(function(){
-            var id = $(this).attr('id');
-            var soluong = parseInt($('#'+id).val());
+        $('.updateCartAdd').click(function(){
+            var id = $(this).attr('value-id');
+            var soluong =  parseInt($(this).prev().val(), 10) + 1
+            if(soluong > 0){
+                $.post(
+                    './updateCart',
+                    {
+                      id      : id,
+                      soluong : soluong
+                    }, function(data){                     
+                      
+                      if(data.st ==1) location.href = "gio-hang.html";
+                    }
+                ), 'json';
+            }
+        });
+        $('.updateCartRemove').click(function(){
+            var id = $(this).attr('value-id');
+            var soluong =  parseInt($(this).next().val(), 10) - 1
             if(soluong > 0){
                 $.post(
                     './updateCart',

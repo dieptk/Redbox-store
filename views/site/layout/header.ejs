@@ -7,8 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 <!--    <base href="/">-->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300italic,400italic,600,600italic' rel='stylesheet'
-          type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
     <link href='http://fonts.googleapis.com/css?family=Crete+Round' rel='stylesheet' type='text/css'>
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/bootstrap-responsive.css" rel="stylesheet">
@@ -36,13 +35,14 @@
                 <div class="span12">
                     <a href="/" class="logo pull-left"><img src="img/logo.png" alt="SimpleOne" title="SimpleOne"></a>
                     <!-- Top Nav Start -->
-                    <div class="pull-left">
+                    <div class="pull-right">
                         <div class="navbar" id="topnav">
                             <div class="navbar-inner">
                                 <ul class="nav">
-                                    <li><a class="home active" href="/">Home</a>
-                                    <li>
-                                    <li><a class="shoppingcart" href="/gio-hang.html">Shopping Cart</a>
+                                    <li style="position: relative"><a class="shoppingcart" href="/gio-hang.html"><i class="fas fa-cart-arrow-down cart-main"></i></a>
+                                        <span id="number-items-in-cart">
+                                            <%= numberItems ? numberItems : 0 %>
+                                        </span>
                                     </li>
                                 </ul>
                             </div>

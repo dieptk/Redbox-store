@@ -9,6 +9,7 @@ var Product = new Schema({
   cateId 		: String,
   des 			: String,
   price 		: Number,
+  saleRate		: {type: Number, default: 0},
   st 			: Number
 
 

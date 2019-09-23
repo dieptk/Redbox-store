@@ -19,12 +19,16 @@ var countJson = function(json) {
 
 /* GET home page. */
 router.get('/', function(req, res) {
-
+	var giohang = new GioHang((req.session.cart) ? req.session.cart : {
+		items: {}
+	});
+	var data = giohang.convertArray();
 	Product.find().then(function(product) {
 		Cate.find().then(function(cate) {
 			res.render('site/page/index', {
 				product: product,
-				cate: cate
+				cate: cate,
+				numberItems: data.length
 			});
 		});
 	});
@@ -77,6 +81,7 @@ router.post('/dat-hang.html', function(req, res) {
 	var data = giohang.convertArray();
 	var items = [];
 	data.map(e => {
+		e.item.quantity = e.soluong
 		items.push(e.item)
 	})
 	var amount = 0
@@ -124,21 +129,20 @@ router.post('/dat-hang.html', function(req, res) {
 							req.session.cart = {
 								items: {}
 							};
-							res.redirect('/');
+							res.redirect('/gio-hang.html');
 						});
 					} else {
 						req.flash('success_msg', data.msg);
-						res.redirect('/');
+						res.redirect('/gio-hang.html');
 					}
 				} else {
 					req.flash('success_msg', "Error");
-					res.redirect('/');
+					res.redirect('/gio-hang.html');
 				}
 			})
 			.catch(function(error) {
-				console.log(error);
 				req.flash('success_msg', "Error");
-				res.redirect('/');
+				res.redirect('/gio-hang.html');
 			});
 	} else {
 		var cart = new Cart({
@@ -155,7 +159,7 @@ router.post('/dat-hang.html', function(req, res) {
 				items: {}
 			};
 			req.flash('success_msg', "Create success");
-			res.redirect('/');
+			res.redirect('/gio-hang.html');
 		});
 	}
 
@@ -173,12 +177,13 @@ router.get('/dat-hang.html', function(req, res) {
 		if (countJson(req.session.cart.items) > 0) {
 			let total = 0
 			data.map(e => {
-				total += e.item.price
+				total += e.tien
 			})
 			res.render('site/page/check', {
 				errors: null,
 				items: data,
-				total: total
+				total: total,
+				numberItems: data.length
 			});
 		} else res.redirect('/');
 
@@ -206,7 +211,7 @@ router.get('/add-cart.:id', function(req, res) {
 	Product.findById(id).then(function(data) {
 		giohang.add(id, data);
 		req.session.cart = giohang;
-		res.redirect('/gio-hang.html');
+		res.end('1')
 	});
 
 
@@ -219,7 +224,8 @@ router.get('/gio-hang.html', function(req, res) {
 	var data = giohang.convertArray();
 
 	res.render('site/page/cart', {
-		data: data
+		data: data,
+		numberItems: data.length
 	});
 });
 

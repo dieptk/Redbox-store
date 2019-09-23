@@ -29,9 +29,9 @@ ul, ul li {
 
 .heading1 {
     margin-bottom: 40px;
-    border-bottom: 1px solid #efefef;
     margin-top: 0px;
-    font-size: 34px
+    font-size: 34px;
+    text-align: center;
 }
 
 .heading2 {
@@ -54,10 +54,10 @@ ul, ul li {
 
 .heading1 .maintext {
     font-size: 28px;
-    color: #5e626b;
     text-transform: uppercase;
     padding: 0px 14px 4px 0;
-    font-family: 'Crete Round', serif;
+    font-weight: bold;
+    color: #FB6037;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -141,7 +141,7 @@ input:focus:invalid, textarea:focus:invalid, select:focus:invalid {
 /* ------------ Header ------------ */
 .headerstrip {
     height: 72px;
-    background: #f25c27
+    background: #fff
 }
 
 .logo {
@@ -489,12 +489,10 @@ ul.categorymenu > li ul > li img {
 
 /* ------------ otherddetails ------------ */
 .otherddetails {
-    border: 1px solid #dddddd;
     margin: 60px auto 0 auto
 }
 
 .otherddetails .otherddetailspart {
-    background: url(../img/otherseperate.png) no-repeat right center;
     width: 25%;
     float: left;
     display: inline-block
@@ -505,19 +503,26 @@ ul.categorymenu > li ul > li img {
 }
 
 .otherddetails .otherddetailspart .innerclass {
-    padding: 25px 0px 25px 90px;
-    background: url(../img/otherdetailicon.png) no-repeat 10px top;
+    padding: 20px;
+    text-align: center;
+    font-size: 14px
+}
+.otherddetailspart .innerclass img {
+    width: 80px
 }
 
 .otherddetails .otherddetailspart .innerclass h2 {
-    font-size: 20px;
     color: #5e626b;
     line-height: normal;
-    margin: 0px
+    margin: 0px;
+    font-size: 14px;
+    font-weight: bold
 }
 
-.otherddetails .otherddetailspart .innerclass.free {
-    background-position: 20px 29px
+.otherddetails .otherddetailspart .innerclass p {
+    font-size: 13px;
+    margin-top: 5px;
+    color: #999
 }
 
 .otherddetails .otherddetailspart .innerclass.payment {
@@ -747,18 +752,18 @@ ul.categorymenu > li ul > li img {
 }
 
 
-#featured .thumbnails li:hover .thumbnail img, #latest .thumbnails li:hover .thumbnail img, #related .thumbnails li:hover .thumbnail img, #category .thumbnails li:hover .thumbnail img, .thumbnails.list li:hover .thumbnail img {
+/*#featured .thumbnails li:hover .thumbnail img, #latest .thumbnails li:hover .thumbnail img, #related .thumbnails li:hover .thumbnail img, #category .thumbnails li:hover .thumbnail img, .thumbnails.list li:hover .thumbnail img {
     transform: scale(1.2, 1.2);
-    -ms-transform: scale(1.2, 1.2); /* IE 9 */
-    -webkit-transform: scale(1.2, 1.2); /* Safari and Chrome */
-    -o-transform: scale(1.2, 1.2); /* Opera */
-    -moz-transform: scale(1.2, 1.2); /* Firefox */
+    -ms-transform: scale(1.2, 1.2);
+    -webkit-transform: scale(1.2, 1.2); 
+    -o-transform: scale(1.2, 1.2);
+    -moz-transform: scale(1.2, 1.2);
     transition: all 0.8s;
-    -ms-transition: all 0.8s; /* IE 9 */
-    -moz-transition: all 0.8s; /* Firefox 4 */
-    -webkit-transition: all 0.8s; /* Safari and Chrome */
-    -o-transition: all 0.8s; /* Opera */
-}
+    -ms-transition: all 0.8s; 
+    -moz-transition: all 0.8s;
+    -webkit-transition: all 0.8s;
+    -o-transition: all 0.8s; 
+}*/
 
 #featured .thumbnails li .thumbnail, #latest .thumbnails li .thumbnail, #related .thumbnails li .thumbnail, #category .thumbnails li .thumbnail, .thumbnails.list li .thumbnail {
     overflow: hidden
@@ -1414,7 +1419,9 @@ ul.total li span.extra {
 
 .totalamout {
     font-size: 22px;
-    color: #f25c27
+    color: #f25c27;
+    line-height: 40px;
+    height: 40px;
 }
 
 . /* login */
@@ -2134,7 +2141,7 @@ a.tweet_avatar {
 /* footersocial  */
 .footersocial {
     padding: 30px 0 40px;
-    background: #FDEECE;
+    background: #fff;
     color: #5E626B
 }
 
@@ -2663,9 +2670,13 @@ input.search-query, .btn, .label, .badge, .nav-pills > li > a {
 .btn-orange {
     color: #ffffff;
     text-shadow: none;
-    background: #F25C27;
-    *background: #F25C27;
-    box-shadow: none;
+    background: #FB6037;
+    border: 0px;
+    border: 0;
+    width: 120px;
+    border-radius: 3px;
+    padding: 0px;
+    line-height: 40px;
 }
 
 .btn-orange:hover, .btn-orange:active, .btn-orange.active, .btn-orange.disabled, .btn-orange[disabled] {
@@ -2890,7 +2901,7 @@ table th {
     -moz-box-sizing: border-box; 
     -webkit-box-sizing: border-box; 
     box-sizing: border-box;
-    border: 2px solid #009688;
+    border: 2px solid red;
     display: none
 }
 .delivery-page .info-redbox .title{
@@ -3210,4 +3221,147 @@ table th {
     color: #fff;
     line-height: 15px;
     position: absolute;
+}
+.area-info-product {
+    float: left;
+    width: 100%;
+    /* margin-top: 10px; */
+    background: #fff;
+    padding: 10px 20px;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;
+}
+.area-info-product .name-and-des {
+    float: left;
+    width: 70%
+}
+.area-info-product .name-and-des b{
+    float: left;
+    width: 100%;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+.area-info-product .name-and-des span{
+    float: left;
+    width: 100%;
+    color: #ccc;
+}
+.price-and-sale {
+    float: left;
+    width: 30%;
+    text-align: right;
+}
+.area-info-product .price-and-sale b{
+    float: left;
+    width: 100%
+}
+.area-info-product .price-and-sale span{
+    float: left;
+    width: 100%;
+    text-decoration: line-through;
+    color: #ccc
+}
+.area-like-and-add-to-card {
+    position: absolute;
+    width: 100%;
+    bottom: 80px;
+    z-index: 10000;
+    text-align: center;
+    display: none
+}
+.area-like-and-add-to-card .like {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #fff;
+    text-align: center;
+    cursor: pointer;
+    display: inline-block;
+    margin: 0px 5px
+}
+.area-like-and-add-to-card .like i{
+    line-height: 30px;
+    color: #ccc;
+}
+.area-like-and-add-to-card .like:hover i{
+    color: red
+}
+.area-like-and-add-to-card .add-to-card {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #fff;
+    text-align: center;
+    cursor: pointer;
+    display: inline-block;
+    margin: 0px 5px
+}
+.area-like-and-add-to-card .add-to-card.added {
+    background: orange;
+}
+.area-like-and-add-to-card .add-to-card.added i {
+    color: #fff
+}
+.area-like-and-add-to-card .add-to-card i{
+    line-height: 30px;
+    color: #ccc;
+}
+.area-like-and-add-to-card .add-to-card:hover i{
+    color: red
+}
+.per-product-in-list:hover {
+    box-shadow: 0 4px 12px rgba(127, 136, 202, 0.47);
+}
+.per-product-in-list:hover .area-like-and-add-to-card {
+    display: block;
+}
+.sale-label {
+    position: absolute;
+    width: 50px;
+    font-size: 12px;
+    background: #FB6037;
+    color: #fff;
+    text-align: center;
+    right: 10px;
+    top: 10px;
+}
+.cart-main {
+    font-size: 18px;
+    color: #ffb5a1;
+}
+.table-order {
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+.table-order th{
+    background: #fff!important;
+    border: 0px;
+    padding: 10px 5px;
+}
+.table-order td{
+    vertical-align: middle!important;
+    border: 0px;
+    padding: 5px;
+    background: #fff!important
+}
+.table-order {
+    background: #fff!important;
+    border: 0px!important;
+}
+.alert {
+    float: left;
+}
+#number-items-in-cart {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: red;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    right: 5px;
+    top: -10px;
+    font-size: 11px;
 }

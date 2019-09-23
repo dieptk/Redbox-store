@@ -44,7 +44,7 @@
                     {
 
                     },function(data){
-                      $('img.avatar').attr('src', '/upload/' + data.img);
+                      $('img.avatar').attr('src', data.img);
                       $('.name').html(data.fullname);
                     }
                 )
