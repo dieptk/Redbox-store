@@ -277,7 +277,7 @@ router.post('/get-nearest-points', function(req, res) {
 						location: e.location,
 						lockers: e.lockers,
 						location_name: e.location_name,
-						host_name: e.host_name,
+						host_name: e.host_name_en,
 						location_type: e.location_type,
 						address: e.address,
 						icon: e.icon,
