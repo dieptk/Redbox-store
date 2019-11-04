@@ -87,13 +87,15 @@ router.post('/dat-hang.html', function(req, res) {
 	data.map(e => {
 		amount += e.tien
 	})
+	if (req.body.pay_type == "debit") {
+		amount = 0
+	}
 	if (req.body.type_delivery == '1') {
 		axios.post(`${host}/api/business/v1/create-shipment`, {
 				reference: new Date().getTime(),
 				items: items,
 				size: "Small",
 				point_id: req.body.point,
-				locker_id: req.body.locker,
 				sender_name: "Redbox store",
 				sender_email: "redboxsa@gmail.com",
 				sender_phone: "0986845623",

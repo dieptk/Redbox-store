@@ -15,9 +15,9 @@
             <% };%>
             <form class="delivery-page" method="POST" action="/dat-hang.html">
                 <input type="hidden" id="point" name="point">
-                <input type="hidden" id="locker" name="locker">
                 <input type="hidden" id="size" value="Small" name="size">
                 <input type="hidden" id="use_redbox" name="type_delivery">
+                <input type="hidden" id="pay_type" name="pay_type" value="delivery">
                 <div class="dp-left">
                     <div class="type-delivery">
                         <div class="td-nomal active" onclick="useDeliveryNomal(this)">
@@ -76,7 +76,7 @@
                     <div class="info-redbox">
                         <div class="title">
                             <i class="fas fa-id-card"></i>
-                            <span>Point and Locker</span>
+                            <span>Point</span>
                         </div>
                         <div class="choose-point">
                             <button type="button" id="use-redbox">Choose point</button>
@@ -88,11 +88,11 @@
                             <i class="fas fa-credit-card"></i>
                             <span>Payment</span>
                         </div>
-                        <div class="step-payment active">
+                        <div class="step-payment active" type="delivery">
                             <span>Cash on delivery</span>
                             <i class="fas fa-money-bill"></i>
                         </div>
-                        <div class="step-payment">
+                        <div class="step-payment" type="debit">
                             <span>Credit / Debit card</span>
                             <i class="fab fa-cc-visa"></i>
                         </div>
@@ -263,18 +263,18 @@
                         }
     					r.data.map(e => {
     						let uuidTemp = uuidv4()
-    						let htmlLocker = ''
-    						if (e.lockers) {
-    							e.lockers.map(c => {
-    								htmlLocker += `
-										<div class="per-locker" onclick='chooseLocker("${c._id}", "${c.name}")'>
-											<span>${c.name}</span>
-											<button>Choose this</button>
-										</div>
-    								`
-    							})
-    						}
-    						htmlLocker = `<div class="pp-list-locker">${htmlLocker}</div>`
+    						// let htmlLocker = ''
+    						// if (e.lockers) {
+    						// 	e.lockers.map(c => {
+    						// 		htmlLocker += `
+										// <div class="per-locker" onclick='chooseLocker("${c._id}", "${c.name}")'>
+										// 	<span>${c.name}</span>
+										// 	<button>Choose this</button>
+										// </div>
+    						// 		`
+    						// 	})
+    						// }
+    						// htmlLocker = `<div class="pp-list-locker">${htmlLocker}</div>`
     						let html = `
 								<div class="p-per-point">
 					            	<div class="per-point">
@@ -297,16 +297,20 @@
 					            				<span>Open hour: ${e.open_hour}</span>
 					            			</div>
 					            		</div>
-					            		${htmlLocker}
 					            		<button class="select" id="${uuidTemp}">Select</button>
 					            	</div>
 					            </div>
     						`
     						$('.modal-footer-list-point .area-contain-point').append(html)
     						$(`#${uuidTemp}`).click(function () {
-    							getLockerPoint(this)
+    							// getLockerPoint(this)
     							$('#point').val(e.id)
     							POINT_CHOOSED = e
+                                $('#myModal').modal('hide');
+                                if (POINT_CHOOSED) {
+                                    let html = `Point: ${POINT_CHOOSED.host_name} - ${POINT_CHOOSED.location_name} <br> Address: ${POINT_CHOOSED.address.street} - ${POINT_CHOOSED.address.district} - ${POINT_CHOOSED.address.city}`
+                                    $('#namePointAndLockerOutSide').html(html)
+                                }
     						})
     						let marker = new google.maps.Marker({
     							map: map,
@@ -337,7 +341,7 @@
     	$('#locker').val(id)
     	$('#myModal').modal('hide');
     	if (POINT_CHOOSED) {
-    		let html = `Point: ${POINT_CHOOSED.host_name} - ${POINT_CHOOSED.location_name} <br> Locker: ${name} <br> Address: ${POINT_CHOOSED.address.street} - ${POINT_CHOOSED.address.district} - ${POINT_CHOOSED.address.city}`
+    		let html = `Point: ${POINT_CHOOSED.host_name} - ${POINT_CHOOSED.location_name} <br> Address: ${POINT_CHOOSED.address.street} - ${POINT_CHOOSED.address.district} - ${POINT_CHOOSED.address.city}`
     		$('#namePointAndLockerOutSide').html(html)
     	}
     }
@@ -360,5 +364,6 @@
     $('.step-payment').click(function () {
     	$('.step-payment.active').removeClass('active')
     	$(this).addClass('active')
+        $('#pay_type').val($(this).attr('type'))
     })
 </script>
