@@ -7,6 +7,7 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
+var moment = require('moment');
 var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcryptjs');
 
@@ -132,19 +133,47 @@ app.post('/update-location', (req, res) => {
   })
 })
 
-app.get('/get-location', (req, res) => {
-  Boat.findOne({}).exec((e, r) => {
+app.get('/get-location', (req, res) => {  
+  Boat.findOne({}).lean().exec((e, r) => {
     if (e) {
       res.status(500).send(JSON.stringify({state: false}))
     } else {
       if (r) {
+        let results = []
+        if (req.query.time_start) {
+          r.tracking.map(e => {
+            if (moment(req.query.time_start).isSameOrBefore(e.dateCreate)) {
+              results.push(e)
+            }
+          })
+        }
+        if (req.query.time_end) {
+          r.tracking = []
+          results.map(e => {
+            if (moment(req.query.time_end).isSameOrAfter(e.dateCreate)) {
+              r.tracking.push(e)
+            }
+          })
+        }
         res.status(200).send(JSON.stringify({state: true, data: r}))
       } else {
         res.status(200).send(JSON.stringify({state: false, msg: "Boat does not exist"}))
       }
     }
   })
-})+
+})
+
+app.get('/clear-location', (req, res) => {
+  Boat.updateOne({}, {
+    tracking: []
+  }).exec((e) => {
+    if (e) {
+      res.status(500).send(JSON.stringify({state: false}))
+    } else {
+      res.status(500).send(JSON.stringify({state: true}))
+    }
+  })
+})
 
 
 app.use('/', index);

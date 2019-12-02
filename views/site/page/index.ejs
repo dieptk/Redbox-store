@@ -114,7 +114,7 @@
   <!-- Latest Product-->
 
 
-<!-- Footer -->
+<!-- Footer --> 
 <script>
   function addToCard(id, ev) {
     $.get(`/add-cart.${id}`, (r) => {
@@ -126,5 +126,6 @@
     $(ev).css('background', "red")
     $(ev).find('i').css('color', '#fff')
   }
+
 </script>
 <% include ../layout/footer.ejs %>
