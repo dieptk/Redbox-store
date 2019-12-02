@@ -24,6 +24,7 @@
     "phantom": "^6.3.0",
     "phantomjs": "^2.1.7",
     "request": "^2.88.0",
-    "serve-favicon": "~2.4.2"
+    "serve-favicon": "~2.4.2",
+    "socket.io": "^2.3.0"
   }
 }

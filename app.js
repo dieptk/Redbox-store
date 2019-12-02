@@ -78,7 +78,73 @@ app.use(function(req, res, next){
 });
 
 
+const Boat = require('./model/Boat');
 
+
+app.get('/create-boad', (req, res) => {
+  Boat.findOne({}).exec((e, r) => {
+    if (e) {
+      res.status(500).send(JSON.stringify({state: false}))
+    } else {
+      if (r) {
+        res.status(200).send(JSON.stringify({state: true, data: r}))
+      } else {
+        const boat = new Boat({
+          name: "BOAT-DEMO",
+          tracking: []
+        })
+        boat.save((e, r) => {
+          if (e) {
+            res.status(500).send(JSON.stringify({state: false}))
+          } else {
+            res.status(200).send(JSON.stringify({state: true, data: r}))
+          }
+        })
+      }
+    }
+  })
+})
+
+app.post('/update-location', (req, res) => {
+  Boat.updateOne({}, {
+    $push: {
+      tracking: {
+        lat: req.body.lat,
+        lng: req.body.lng,
+        speed: req.body.lng,
+        fuel: req.body.fuel,
+        dateCreate: new Date()
+      }
+    }
+  }).exec((e) => {
+    if (e) {
+      res.status(500).send(JSON.stringify({state: false}))
+    } else {
+      io.in(`BOAT DEMO`).emit('NEW LOCATION', {
+        lat: req.body.lat,
+        lng: req.body.lng,
+        speed: req.body.lng,
+        fuel: req.body.fuel,
+        dateCreate: new Date()
+      });
+      res.status(200).send(JSON.stringify({state: true}))
+    }
+  })
+})
+
+app.get('/get-location', (req, res) => {
+  Boat.findOne({}).exec((e, r) => {
+    if (e) {
+      res.status(500).send(JSON.stringify({state: false}))
+    } else {
+      if (r) {
+        res.status(200).send(JSON.stringify({state: true, data: r}))
+      } else {
+        res.status(200).send(JSON.stringify({state: false, msg: "Boat does not exist"}))
+      }
+    }
+  })
+})+
 
 
 app.use('/', index);
