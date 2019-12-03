@@ -106,6 +106,18 @@ app.get('/create-boad', (req, res) => {
   })
 })
 
+const calculateDistance = (lat1, lon1, lat2, lon2) => {
+    var R = 6371; // km (change this constant to get miles)
+    var dLat = (lat2-lat1) * Math.PI / 180;
+    var dLon = (lon2-lon1) * Math.PI / 180;
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(lat1 * Math.PI / 180 ) * Math.cos(lat2 * Math.PI / 180 ) *
+        Math.sin(dLon/2) * Math.sin(dLon/2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var d = R * c;
+    return d * 1000
+}
+
 app.post('/update-location', (req, res) => {
   Boat.findOne({}).exec((e, r) => {
     if (e) {
@@ -114,7 +126,7 @@ app.post('/update-location', (req, res) => {
       if (r) {
         if (r.tracking.length) {
           const lastPoint = r.tracking[r.tracking.length - 1]
-          const distance = Math.sqrt((lastPoint.lat - req.body.lat) * (lastPoint.lat - req.body.lat) + (lastPoint.lng - req.body.lng) * (lastPoint.lng - req.body.lng))
+          const distance = calculateDistance(lastPoint.lat, lastPoint.lng, req.body.lat, req.body.lng)
           if (distance > 30) {
             r.tracking.push({
               lat: req.body.lat,
