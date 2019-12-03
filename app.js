@@ -114,7 +114,8 @@ app.post('/update-location', (req, res) => {
         lng: req.body.lng,
         speed: req.body.lng,
         fuel: req.body.fuel,
-        dateCreate: new Date()
+        dateCreate: new Date(),
+        bearing: req.body.bearing
       }
     }
   }).exec((e) => {
@@ -126,7 +127,8 @@ app.post('/update-location', (req, res) => {
         lng: req.body.lng,
         speed: req.body.lng,
         fuel: req.body.fuel,
-        dateCreate: new Date()
+        dateCreate: new Date(),
+        bearing: req.body.bearing
       });
       res.status(200).send(JSON.stringify({state: true}))
     }

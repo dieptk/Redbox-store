@@ -7,7 +7,8 @@ const boatSchema = new mongoose.Schema({
     	lng: Number,
     	speed: String,
     	fuel: String,
-    	dateCreate: Date
+    	dateCreate: Date,
+    	bearing: String
     }]
 }, {timestamps: true, usePushEach: true});
 
