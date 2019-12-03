@@ -112,7 +112,7 @@ app.post('/update-location', (req, res) => {
       tracking: {
         lat: req.body.lat,
         lng: req.body.lng,
-        speed: req.body.lng,
+        speed: req.body.speed,
         fuel: req.body.fuel,
         dateCreate: new Date(),
         bearing: req.body.bearing
