@@ -164,17 +164,21 @@ app.get('/get-location', (req, res) => {
     } else {
       if (r) {
         let results = []
+        r.tracking.forEach(e => {
+          e.dateCreate = (new Date(e.dateCreate)).getTime()
+        })
         if (req.query.time_start) {
           r.tracking.map(e => {
-            if (moment(req.query.time_start).isSameOrBefore(e.dateCreate)) {
+            if (req.query.time_start <= e.dateCreate) {
               results.push(e)
             }
           })
+          r.tracking = results
         }
         if (req.query.time_end) {
           r.tracking = []
           results.map(e => {
-            if (moment(req.query.time_end).isSameOrAfter(e.dateCreate)) {
+            if (req.query.time_end >= e.dateCreate) {
               r.tracking.push(e)
             }
           })
