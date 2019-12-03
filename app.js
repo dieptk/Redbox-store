@@ -107,30 +107,52 @@ app.get('/create-boad', (req, res) => {
 })
 
 app.post('/update-location', (req, res) => {
-  Boat.updateOne({}, {
-    $push: {
-      tracking: {
-        lat: req.body.lat,
-        lng: req.body.lng,
-        speed: req.body.speed,
-        fuel: req.body.fuel,
-        dateCreate: new Date(),
-        bearing: req.body.bearing
-      }
-    }
-  }).exec((e) => {
+  Boat.findOne({}).exec((e, r) => {
     if (e) {
       res.status(500).send(JSON.stringify({state: false}))
     } else {
-      io.in(`BOAT DEMO`).emit('NEW LOCATION', {
-        lat: req.body.lat,
-        lng: req.body.lng,
-        speed: req.body.speed,
-        fuel: req.body.fuel,
-        dateCreate: new Date(),
-        bearing: req.body.bearing
-      });
-      res.status(200).send(JSON.stringify({state: true}))
+      if (r) {
+        if (r.tracking.length) {
+          const lastPoint = r.tracking[r.tracking.length - 1]
+          const distance = Math.sqrt((lastPoint.lat - req.body.lat) * (lastPoint.lat - req.body.lat) + (lastPoint.lng - req.body.lng) * (lastPoint.lng - req.body.lng))
+          if (distance > 30) {
+            r.tracking.push({
+              lat: req.body.lat,
+              lng: req.body.lng,
+              speed: req.body.speed,
+              fuel: req.body.fuel,
+              dateCreate: new Date(),
+              bearing: req.body.bearing
+            })
+          }
+        } else {
+          r.tracking.push({
+            lat: req.body.lat,
+            lng: req.body.lng,
+            speed: req.body.speed,
+            fuel: req.body.fuel,
+            dateCreate: new Date(),
+            bearing: req.body.bearing
+          })
+        }
+        r.save(e => {
+          if (e) {
+            res.status(500).send(JSON.stringify({state: false}))
+          } else {
+            res.status(200).send(JSON.stringify({state: true}))
+          }
+        })
+        io.in(`BOAT DEMO`).emit('NEW LOCATION', {
+          lat: req.body.lat,
+          lng: req.body.lng,
+          speed: req.body.speed,
+          fuel: req.body.fuel,
+          dateCreate: new Date(),
+          bearing: req.body.bearing
+        });
+      } else {
+        res.status(200).send(JSON.stringify({state: false, msg: "Boat does not exist"}))
+      }
     }
   })
 })
