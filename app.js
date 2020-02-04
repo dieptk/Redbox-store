@@ -169,6 +169,36 @@ app.post('/update-location', (req, res) => {
   })
 })
 
+app.post('/update-location-offline', (req, res) => {
+  Boat.findOne({}).exec((e, r) => {
+    if (e) {
+      res.status(500).send(JSON.stringify({state: false}))
+    } else {
+      if (r) {
+      	req.body.position.map(e => {
+      		r.tracking.push({
+            lat: e.lat,
+            lng: e.lon,
+            speed: e.speed,
+            fuel: e.fuel,
+            dateCreate: new Date(e.date),
+            bearing: e.bearing
+          })
+      	})
+        r.save(e => {
+          if (e) {
+            res.status(500).send(JSON.stringify({state: false}))
+          } else {
+            res.status(200).send(JSON.stringify({state: true}))
+          }
+        })
+      } else {
+        res.status(200).send(JSON.stringify({state: false, msg: "Boat does not exist"}))
+      }
+    }
+  })
+})
+
 app.get('/get-location', (req, res) => {  
   Boat.findOne({}).lean().exec((e, r) => {
     if (e) {
