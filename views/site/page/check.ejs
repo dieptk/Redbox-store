@@ -1,296 +1,369 @@
 <% include ../layout/header.ejs %>
 <!-- Header End -->
-
 <div id="maincontainer">
-  <section id="product">
-    <div class="container">
-     <!--  breadcrumb --> 
-      <ul class="breadcrumb">
-        <li>
-          <a href="#">Home</a>
-          <span class="divider">/</span>
-        </li>
-        <li class="active">Contact</li>
-      </ul>  
-      <!-- Contact Us-->
-      <h1 class="heading1"><span class="maintext">Contact</span><span class="subtext"> Contact Us for more</span></h1>
-      <div class="row">
-        <% if(success_msg != ''){ %> 
-            <div class="alert alert-success"><%= success_msg%></div>
-        <% } %>
-        <% if(errors) { %>
-        <div class="alert alert-danger">
-            <% errors.forEach(function(e){ %>
-
+    <section id="product">
+        <div class="container">
+            <% if(success_msg != ''){ %>
+            	<div class="alert alert-success"><%= success_msg%></div>
+            <% } %>
+            <% if(errors) { %>
+            <div class="alert alert-danger">
+                <% errors.forEach(function(e){ %>
                 <%= e.msg %> <br/>
-            <%});%>
-
-        </div>
-        <% };%>
-        <div class="span9">
-          <form class="form-horizontal " action="" method="post">
-            <input type="hidden" id="point" name="point">
-            <input type="hidden" id="locker" name="locker">
-            <input type="hidden" id="size" value="Small" name="size">
-            <input type="hidden" id="receiver_name" name="receiver_name">
-            <input type="hidden" id="receiver_email" name="receiver_email">
-            <input type="hidden" id="receiver_phone" name="receiver_phone">
-            <input type="hidden" id="receiver_address" name="receiver_address">
-            <fieldset>
-              <div class="control-group">
-                <label for="name" class="control-label">Name <span class="required">*</span></label>
-                <div class="controls">
-                  <input type="text"  class="required" id="name" value="" name="name" required>
-                </div>
-              </div>
-              <div class="control-group">
-                <label for="email" class="control-label">Email <span class="required">*</span></label>
-                <div class="controls">
-                  <input type="email"  class="required email" id="email" value="" name="email" required>
-                </div>
-              </div>
-              <div class="control-group">
-                <label for="url" class="control-label">Phone <span class="required">*</span></label>
-                <div class="controls">
-                  <input type="text" id="phone" value="" name="phone" required>
-                </div>
-              </div>
-              <div class="control-group">
-                <label for="url" class="control-label">Address <span class="required">*</span></label>
-                <div class="controls">
-                  <input type="text" id="address" value="" name="address" required>
-                </div>
-              </div>
-              <div class="control-group">
-                <label for="message" class="control-label">Message</label>
-                <div class="controls">
-                  <textarea  class="required" rows="6" cols="40" id="message" name="message"></textarea>
-                </div>
-              </div>
-              <div class="control-group">
-                <label for="message" class="control-label">Payment</label>
-                <div class="controls">
-                  <input type="radio" name="payment" value='0' style="margin: 0px"> <span style="margin-right: 15px;">Online</span>
-                  <input type="radio" name="payment" value='1' checked style="margin: 0px"> <span style="margin-right: 15px;">Cod</span>
-                </div>
-              </div>
-              <div class="control-group">
-                <label for="message" class="control-label">Delivery</label>
-                <div class="controls">
-                  <input type="radio" name="type_delivery" value='0' style="margin: 0px"> <span style="margin-right: 15px;">Normal</span>
-                  <input type="radio" name="type_delivery" value='1' style="margin: 0px" id="use-redbox"> <span style="margin-right: 15px;">Use redbox</span>
-                </div>
-              </div>
-              <div class="form-actions">
-                <input class="btn btn-orange" type="submit" value="Submit" id="submit_id">
-                <input class="btn" type="reset" value="Reset">
-              </div>
-            </fieldset>
-          </form>
-        </div>
-        
-        <!-- Sidebar Start-->
-        <div class="span3">
-          <aside>
-            <div class="sidewidt">
-              <h2 class="heading2"><span>Contact Info</span></h2>
-              <p> Lorem Ipsum is simply<br>
-                Lorem Ipsum is simply<br>
-               Lorem Ipsum is simply<br>
-                <br>
-                Phone: (012) 333-7890<br>
-                Fax: (123) 444-7890<br>
-                Email: test@contactus.com<br>
-                Web: yourcompanyname.com<br>
-              </p>
+                <%});%>
             </div>
-          </aside>
+            <% };%>
+            <form class="delivery-page" method="POST" action="/dat-hang.html">
+                <input type="hidden" id="point" name="point">
+                <input type="hidden" id="size" value="Small" name="size">
+                <input type="hidden" id="use_redbox" name="type_delivery">
+                <input type="hidden" id="pay_type" name="pay_type" value="delivery">
+                <div class="dp-left">
+                    <div class="type-delivery">
+                        <div class="td-nomal active" onclick="useDeliveryNomal(this)">
+                            <div class="tdn-step-1">
+                                <i class="fas fa-truck"></i>
+                                <span>Delivery</span>
+                            </div>
+                            <p>
+                                Delivery Time
+                            </p>
+                            <p>
+                                <b>
+                                3 - 5 Days
+                                </b>
+                            </p>
+                            <div class="select-this">
+                            	<i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="td-redbox" onclick="useDeliveryRedbox(this)">
+                            <div class="tdr-left">
+                                <div class="tdr-step-1">
+                                    <i class="fab fa-buromobelexperte"></i>
+                                    <span>REDBOX Smart Locker</span>
+                                    <small>New</small>
+                                </div>
+                                <p>
+                                    Delivery Time
+                                </p>
+                                <p>
+                                    <b>
+                                    1 - 2 Days
+                                    </b>
+                                </p>
+                            </div>
+                            <div class="tdr-right">
+                                <span>Chose One of RedBox Smart Lockers to pick-up your package anytime!</span>
+                            </div>
+                            <div class="select-this">
+                            	<i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-receiver">
+                        <div class="title">
+                            <i class="fas fa-id-card"></i>
+                            <span>Infomation receiver</span>
+                        </div>
+                        <div class="list-field">
+                            <input type="text" placeholder="Name" name="receiver_name" required>
+                            <input type="text" placeholder="Email" name="receiver_email" required>
+                            <input type="text" placeholder="Phone" name="receiver_phone" required>
+                            <input type="text" placeholder="Address" name="receiver_address" id="address" required>
+                        </div>
+                    </div>
+                    <div class="info-redbox">
+                        <div class="title">
+                            <i class="fas fa-id-card"></i>
+                            <span>Point</span>
+                        </div>
+                        <div class="choose-point">
+                            <button type="button" id="use-redbox">Choose point</button>
+                            <div class="address-choose" id="namePointAndLockerOutSide"></div>
+                        </div>
+                    </div>
+                    <div class="type-payment">
+                        <div class="title">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Payment</span>
+                        </div>
+                        <div class="step-payment active" type="delivery">
+                            <span>Cash on delivery</span>
+                            <i class="fas fa-money-bill"></i>
+                        </div>
+                        <div class="step-payment" type="debit">
+                            <span>Credit / Debit card</span>
+                            <i class="fab fa-cc-visa"></i>
+                        </div>
+                    </div>
+                    <div class="list-items">
+                        <div class="title">
+                            <i class="fas fa-list"></i>
+                            <span>Items</span>
+                        </div>
+                        <% items.map(e => { %>
+							<div class="per-item">
+	                            <img src="/upload/<%= e.item.img %>">
+	                            <div class="pi-info">
+	                                <b><%= e.item.name %></b>
+	                                <span>Quanlity: <%= e.soluong %></span>
+	                                <span>Unit price: <%= e.item.unitPrice %> <%= e.item.currency %></span>
+	                            </div>
+	                        </div>
+                    	<% }) %>
+                    </div>
+                </div>
+                <div class="dp-right">
+                    <div class="title">
+                        <i class="fas fa-calculator"></i>
+                        <span>Summary</span>
+                    </div>
+                    <div class="content">
+                        <div class="dp-right-c-step">
+                            <span class="left">
+                            Sub-total
+                            </span>
+                            <span class="right">
+                            <%= total %> SAR
+                            </span>
+                        </div>
+                        <div class="dp-right-c-step">
+                            <span class="left">
+                            Cash on delivery fees
+                            </span>
+                            <span class="right">
+                            0 SAR
+                            </span>
+                        </div>
+                        <div class="dp-right-c-step">
+                            <span class="left">
+                            Shipping fees
+                            </span>
+                            <span class="right">
+                            0 SAR
+                            </span>
+                        </div>
+                        <div class="dp-right-c-step dp-right-c-step-total">
+                            <span class="left">
+                            Total
+                            </span>
+                            <span class="right">
+                            <%= total %> SAR
+                            </span>
+                        </div>
+                        <button class="create-order">Create order</button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <!-- Sidebar End-->
-        
-      </div>
-    </div>
-  </section>
+    </section>
 </div>
-
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Points Map</h4>
-      </div>
-      <div class="modal-body" id="area-map" style="height: 300px">
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+<div id="myModal" class="modal fade" role="dialog" style="display: none;width: 930px;text-align: center;height: auto;max-height: unset;bottom: 3%;left: 15%;margin: 0px">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" >&times;</button>
+                <h4 class="modal-title">Points Map</h4>
+            </div>
+            <div class="modal-body" id="area-map" style="height: 800px; width: 900px">
+            </div>
+            <div class="modal-footer modal-footer-list-point" style = "background-color: #bfbfbf; height: 60px; overflow-x: auto;">
+                <div class="area-contain-point" style="position: absolute;">
+                </div>
+            </div>
+        </div>
     </div>
-
-  </div>
 </div>
-
-<div id="modalListLocker" class="modal fade" role="dialog" style="width: 30%;text-align: center;height: auto;max-height: unset;left: 35%;margin: 0px">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-body" id="area-map">
-        <table style="float: left;width: 100%;">
-          <tbody>
-            
-          </tbody>
-        </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<div id="modalSize" class="modal fade" role="dialog" style="display: none; width: 20%;text-align: center;height: auto;max-height: unset;left: 40%;margin: 0px">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-body" id="area-map">
-        <p>Choose size</p>
-        <select name="" id="" onchange="chooseSize(this)">
-          <option value="Small">Small</option>
-          <option value="Medium">Medium</option>
-          <option value="Large">Large</option>
-        </select>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-
 <!-- Footer -->
 <% include ../layout/footer.ejs %>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6jm7ywUrjmC_wW2F0B0X75_skCBXmbjQ&sensor=false&libraries=places"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDeZ2O_NB6rLnIdYjzgk4hsvpuEZS_NR-E&sensor=false&libraries=places"></script>
 <script>
-  const stylesMap = [
-  {
-    "featureType": "administrative",
-    "elementType": "geometry",
-    "stylers": [
-      {
-          "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "poi",
-    "stylers": [
-      {
-          "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "road",
-    "elementType": "labels.icon",
-    "stylers": [
-      {
-          "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "transit",
-    "stylers": [
-      {
-          "visibility": "off"
-      }
-    ]
-  }
-]
-  $('#use-redbox').click(function () {
-    $('#receiver_name').val($("#name").val())
-    $('#receiver_email').val($("#email").val())
-    $('#receiver_phone').val($("#phone").val())
-    $('#receiver_address').val($("#address").val())
-    if ($('#address').val() == '') {
-      alert("Address required")
-      return false
+    const stylesMap = [
+    {
+    	"featureType": "administrative",
+    	"elementType": "geometry",
+    	"stylers": [
+    		{
+    				"visibility": "off"
+    		}
+    	]
+    },
+    {
+    	"featureType": "poi",
+    	"stylers": [
+    		{
+    				"visibility": "off"
+    		}
+    	]
+    },
+    {
+    	"featureType": "road",
+    	"elementType": "labels.icon",
+    	"stylers": [
+    		{
+    				"visibility": "off"
+    		}
+    	]
+    },
+    {
+    	"featureType": "transit",
+    	"stylers": [
+    		{
+    				"visibility": "off"
+    		}
+    	]
     }
-    $("#myModal").modal();
-    $('#myModal').on('shown.bs.modal', function (e) {
-      showMapPoint()
+    ]
+    $('#use-redbox').click(function () {
+    	if ($('#address').val() == '') {
+    		alert("Address required")
+    		return false
+    	}
+    	$("#myModal").modal();
+    	$('#myModal').on('shown.bs.modal', function (e) {
+    		showMapPoint()
+    	})
     })
-  })
-  function showMapPoint(argument) {
-    const map = new google.maps.Map(document.getElementById('area-map'), {
-      center: {lat: -34.397, lng: 150.644},
-      zoom: 11,
-      styles: stylesMap,
-    });
-    const geocoder = new google.maps.Geocoder();
-    geocoder.geocode({'address': $('#address').val()}, function(results, status) {
-      if (status === 'OK') {
-        let bounds = new google.maps.LatLngBounds();
-        let marker = new google.maps.Marker({
-          map: map,
-          position: results[0].geometry.location,
-          icon: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
-        });
-        bounds.extend(marker.position);
-        $.post('/get-nearest-points', {
-          lat: results[0].geometry.location.lat(),
-          lng: results[0].geometry.location.lng(),
-        }, (r) => {
-          if (r.state) {
-            r.data.map(e => {
-              let marker = new google.maps.Marker({
-                map: map,
-                position: {
-                  lat: e.location.lat,
-                  lng: e.location.lng
-                },
-                title: e.name
-              });
-              bounds.extend(marker.position);
-              google.maps.event.addListener(marker, 'click', function() {
-                $('#point').val(e.id)
-                getLockerPoint(e.lockers)
-              })
-            })
-            map.fitBounds(bounds);
-          }
-        })
-      } else {
-        alert('Geocode was not successful for the following reason: ' + status);
-      }
-    });
-  }
-  function getLockerPoint(lockers) {
-    $('#modalListLocker tbody').html('')
-    lockers.map(e => {
-      $('#modalListLocker tbody').append(`
-        <tr>
-          <td>${e.name}</td>
-          <td><button onclick='chooseLocker("${e._id}")'>Choose This</button></td>
-        </tr>
-      `)
+    function uuidv4() {
+		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+	    	var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+	    	return v.toString(16);
+		});
+	}
+	let POINT_CHOOSED = false
+    function showMapPoint(argument) {
+    	const map = new google.maps.Map(document.getElementById('area-map'), {
+    		center: {lat: -34.397, lng: 150.644},
+    		zoom: 11,
+    		styles: stylesMap,
+    	});
+    	const geocoder = new google.maps.Geocoder();
+    	geocoder.geocode({'address': $('#address').val()}, function(results, status) {
+    			console.log("status",status);
+    		if (status === 'OK') {
+    			let bounds = new google.maps.LatLngBounds();
+    			let marker = new google.maps.Marker({
+    				map: map,
+    				position: results[0].geometry.location,
+    				icon: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
+    			});
+    			bounds.extend(marker.position);
+    			$.post('/get-nearest-points', {
+    				lat: results[0].geometry.location.lat(),
+    				lng: results[0].geometry.location.lng(),
+    			}, (r) => { 
+    				if (r.state) {
+    					$('.modal-footer-list-point .area-contain-point').html('')
+                        let w = r.data.length * 230 + 10
+                        $('.modal-footer-list-point .area-contain-point').css('width', w)
+                        if (w > 930) {
+                            $('.modal-footer-list-point').css('height', 77)
+                        }
+    					r.data.map(e => {
+    						let uuidTemp = uuidv4()
+    						// let htmlLocker = ''
+    						// if (e.lockers) {
+    						// 	e.lockers.map(c => {
+    						// 		htmlLocker += `
+										// <div class="per-locker" onclick='chooseLocker("${c._id}", "${c.name}")'>
+										// 	<span>${c.name}</span>
+										// 	<button>Choose this</button>
+										// </div>
+    						// 		`
+    						// 	})
+    						// }
+    						// htmlLocker = `<div class="pp-list-locker">${htmlLocker}</div>`
+    						let html = `
+								<div class="p-per-point">
+					            	<div class="per-point">
+					            		<div class="pp-main">
+					            			<img src="${e.icon}">
+					            			<div class="pp-main-right">
+					            				<b>${e.host_name}</b>
+					            				<span>${e.location_name}</span>
+					            			</div>
+					            		</div>
+					            		<div class="pp-more">
+					            			<div class="ppm-address">
+					            				<i class="fas fa-map-marker-alt"></i>
+					            				<span>${e.address.street} - ${e.address.district} - ${e.address.city}</span>
+					            			</div>
+					            		</div>
+					            		<div class="pp-more">
+					            			<div class="ppm-address">
+					            				<i class="far fa-clock"></i>
+					            				<span>Open hour: ${e.open_hour}</span>
+					            			</div>
+					            		</div>
+					            		<button class="select" id="${uuidTemp}">Select</button>
+					            	</div>
+					            </div>
+    						`
+    						$('.modal-footer-list-point .area-contain-point').append(html)
+    						$(`#${uuidTemp}`).click(function () {
+    							// getLockerPoint(this)
+    							$('#point').val(e.id)
+    							POINT_CHOOSED = e
+                                $('#myModal').modal('hide');
+                                if (POINT_CHOOSED) {
+                                    let html = `Point: ${POINT_CHOOSED.host_name} - ${POINT_CHOOSED.location_name} <br> Address: ${POINT_CHOOSED.address.street} - ${POINT_CHOOSED.address.district} - ${POINT_CHOOSED.address.city}`
+                                    $('#namePointAndLockerOutSide').html(html)
+                                }
+    						})
+    						let marker = new google.maps.Marker({
+    							map: map,
+    							position: {
+    								lat: e.location.lat,
+    								lng: e.location.lng
+    							},
+    							title: e.name
+    						});
+    						bounds.extend(marker.position);
+    						// google.maps.event.addListener(marker, 'click', function() {
+	    					// 	$('#point').val(e.id)
+	    					// 	getLockerPoint(e.lockers)
+    						// })
+    					})
+    					map.fitBounds(bounds);
+    				}
+    			})
+    		} else {
+    			alert('Geocode was not successful for the following reason: ' + status);
+    		}
+    	});
+    }
+    function getLockerPoint(ob) {
+    	$(ob).prev().show()
+    }
+    function chooseLocker(id, name) {
+    	$('#locker').val(id)
+    	$('#myModal').modal('hide');
+    	if (POINT_CHOOSED) {
+    		let html = `Point: ${POINT_CHOOSED.host_name} - ${POINT_CHOOSED.location_name} <br> Address: ${POINT_CHOOSED.address.street} - ${POINT_CHOOSED.address.district} - ${POINT_CHOOSED.address.city}`
+    		$('#namePointAndLockerOutSide').html(html)
+    	}
+    }
+    $('.per-point .select').click(function () {
+    	$(this).css("height", "auto")
     })
-    $("#myModal").modal('hide');
-    $("#modalListLocker").modal('show');
-  }
-  function chooseLocker(id) {
-    $('#locker').val(id)
-    $("#modalListLocker").modal('hide');
-    $("#modalSize").modal('show');
-  }
-  function chooseSize(ev) {
-    $('#size').val($(ev).val())
-  }
+    function useDeliveryRedbox(ev) {
+    	$(ev).addClass('active')
+    	$('.td-nomal').removeClass('active')
+    	$('.info-redbox').show()
+    	$('#namePointAndLockerOutSide').html('')
+    	$('#use_redbox').val(1)
+    }
+    function useDeliveryNomal(ev) {
+    	$(ev).addClass('active')
+    	$('.td-redbox').removeClass('active')
+    	$('.info-redbox').hide()
+    	$('#use_redbox').val(0)
+    }
+    $('.step-payment').click(function () {
+    	$('.step-payment.active').removeClass('active')
+    	$(this).addClass('active')
+        $('#pay_type').val($(this).attr('type'))
+    })
 </script>

@@ -81,7 +81,7 @@ passport.use(new LocalStrategy({
 ));
 
 passport.serializeUser(function(email, done) {
-  
+
   done(null, email.id);
 });
 
@@ -117,7 +117,6 @@ router.get('/shipments/:id', checkAdmin, function (req, res) {
   }, function(error, response, body){
     if (body) {
       body = JSON.parse(body)
-      console.log(body);
       if (body.success) {
         res.render('admin/shipment/detail', {data: body.data});
       } else {
@@ -138,7 +137,7 @@ router.get('/shipments/edit/:id', checkAdmin, function (req, res) {
     if (body) {
       body = JSON.parse(body)
       if (body.success) {
-        req.flash('success_msg', "Update success");    
+        req.flash('success_msg', "Update success");
         res.render('admin/shipment/edit', {data: body.data});
       } else {
         req.flash('success_msg', "Shipment not exist");
@@ -226,26 +225,60 @@ router.get('/shipments/create-return/:id', checkAdmin, function (req, res) {
     if (body) {
       body = JSON.parse(body)
       if (body.success) {
-        request({
-          headers: {'content-type' : 'application/x-www-form-urlencoded', "Authorization": `Bearer ${key}`},
-          url: `${host}/api/business/v1/return-shipment`,
-          method: "POST",
-          body: `reference=${req.body.reference}&shipment_id=${req.params.id}&items=${body.data.items}&size=${body.data.size}&point_id=${body.data.point.id}&locker_id=${body.data.locker.id}&cod_currency=${body.data.cod.currency}&cod_amount=${body.data.cod.amount}&sender_name=${body.data.receiver.name}&sender_email=${body.data.receiver.email}&sender_phone=${body.data.receiver.phone}&sender_address=${body.data.receiver.address}&receiver_name=${body.data.sender.name}&receiver_email=${body.data.sender.email}&receiver_phone=${body.data.sender.phone}&receiver_address=${body.data.sender.address}`
-        }, function(error, response, body){
-          if (body) {
-            body = JSON.parse(body)
-            if (body.success) {
-              req.flash('success_msg', "Created successfully");
-              res.redirect('/admin/shipments')
-            } else {
-              req.flash('success_msg', body.msg);
-              res.redirect('/admin/shipments')
-            }
+        const axios = require('axios');
+        axios.post(`${host}/api/business/v1/return-shipment`, {
+          reference: new Date().getTime(),
+          shipment_id: req.params.id,
+          items: body.data.items,
+          size: body.data.size,
+          point_id: body.data.point.id,
+          locker_id: body.data.locker.id,
+          sender_name: body.data.receiver.name,
+          sender_email: body.data.receiver.email,
+          sender_phone: body.data.receiver.phone,
+          sender_address: body.data.receiver.address,
+          receiver_name: body.data.sender.name,
+          receiver_email: body.data.sender.email,
+          receiver_phone: body.data.sender.phone,
+          receiver_address: body.data.sender.address,
+          cod_currency: body.data.cod.currency,
+          cod_amount: body.data.cod.amount
+        }, {
+          headers: {
+            'content-type': 'application/json',
+            "Authorization": `Bearer ${key}`
+          }
+        })
+        .then(function(response) {
+          var data = response.data;
+          if (data.success) {
+            req.flash('success_msg', "Created successfully");
+            res.redirect('/admin/shipments')
           } else {
-            req.flash('success_msg', "Error");
+            req.flash('success_msg', body.msg);
             res.redirect('/admin/shipments')
           }
-        });
+        })
+        // request({
+        //   headers: {'content-type' : 'application/x-www-form-urlencoded', "Authorization": `Bearer ${key}`},
+        //   url: `${host}/api/business/v1/return-shipment`,
+        //   method: "POST",
+        //   body: `reference=${req.body.reference}&shipment_id=${req.params.id}&items=${body.data.items}&size=${body.data.size}&point_id=${body.data.point.id}&locker_id=${body.data.locker.id}&cod_currency=${body.data.cod.currency}&cod_amount=${body.data.cod.amount}&sender_name=${body.data.receiver.name}&sender_email=${body.data.receiver.email}&sender_phone=${body.data.receiver.phone}&sender_address=${body.data.receiver.address}&receiver_name=${body.data.sender.name}&receiver_email=${body.data.sender.email}&receiver_phone=${body.data.sender.phone}&receiver_address=${body.data.sender.address}`
+        // }, function(error, response, body){
+        //   if (body) {
+        //     body = JSON.parse(body)
+        //     if (body.success) {
+        //       req.flash('success_msg', "Created successfully");
+        //       res.redirect('/admin/shipments')
+        //     } else {
+        //       req.flash('success_msg', body.msg);
+        //       res.redirect('/admin/shipments')
+        //     }
+        //   } else {
+        //     req.flash('success_msg', "Error");
+        //     res.redirect('/admin/shipments')
+        //   }
+        // });
       } else {
         req.flash('success_msg', "Shipment not exist");
         res.redirect('/admin/shipments')
@@ -258,7 +291,7 @@ router.get('/shipments/create-return/:id', checkAdmin, function (req, res) {
 })
 
 function checkAdmin(req, res, next){
-   
+
     if(req.isAuthenticated()){
       next();
     }else{

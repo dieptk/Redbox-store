@@ -4,84 +4,128 @@
 <div id="maincontainer">
   <!-- Slider Start-->
   <section class="slider">
-    <div class="container">
+    <div class="container-slide">
       <div class="flexslider" id="mainslider">
         <ul class="slides">
           <li>
-            <img src="img/banner1.jpg" alt="" />
+            <img src="img/banner1.png" />
           </li>
           <li>
-            <img src="img/banner2.jpg" alt="" />
+            <img src="img/banner2.png" />
           </li>
           <li>
-            <img src="img/banner1.jpg" alt="" />
+            <img src="img/banner3.png" />
           </li>
           <li>
-            <img src="img/banner2.jpg" alt="" />
+            <img src="img/banner4.png" />
           </li>
         </ul>
       </div>
     </div>
   </section>
   <!-- Slider End-->
-  
+
   <!-- Section Start-->
   <section class="container otherddetails">
     <div class="otherddetailspart">
       <div class="innerclass free">
+        <img src="/img/ic_free_shipping.png"/>
         <h2>Free shipping</h2>
-        All over in world over $200 </div>
+        <p>All over in world over $200</p>
+      </div>
     </div>
     <div class="otherddetailspart">
       <div class="innerclass payment">
+        <img src="/img/ic_easy_payment.png"/>
         <h2>Easy Payment</h2>
-        Payment Gatway support </div>
+        <p>Payment Gatway support</p>
+      </div>
     </div>
     <div class="otherddetailspart">
       <div class="innerclass shipping">
+        <img src="/img/ic_24hrs_shipping.png"/>
         <h2>24hrs Shipping</h2>
-        Free For UK Customers </div>
+        <p>Free For UK Customers</p>
+      </div>
     </div>
     <div class="otherddetailspart">
       <div class="innerclass choice">
+        <img src="/img/ic_choose.png"/>
         <h2>Over 5000 Choice</h2>
-        50,000+ Products </div>
+        <p>50,000+ Products</p>
+      </div>
     </div>
   </section>
   <!-- Section End-->
-  
+
   <!-- Featured Product-->
    <%   cate.forEach(function(ca){ var id = 0; %>
-      <section id="featured" class="row mt40">
+      <section id="featured" class="row">
         <div class="container">
-         
-          <h1 class="heading1"><span class="maintext"> <%= ca.name%> </span><span class="subtext"> See Our Most featured Products</span></h1>
-          
+
+          <h1 class="heading1"><span class="maintext"> <%= ca.name%> </span></h1>
+
           <ul class="thumbnails">
             <%  product.forEach(function(pro){ if(id < 4) { if(pro.cateId == ca._id){ id ++ ; %>
 
                   <li class="span3">
-                    <a class="prdocutname" href="product.html"> <%= pro.name %> </a>
-                    <div class="thumbnail">
-                      <span class="sale tooltip-test">Sale</span>
-                      <a href="/chi-tiet/<%= pro.nameKhongDau%>.<%= pro._id%>.<%= pro.cateId%>.html"><img alt="" src="upload/<%= pro.img %>"></a>
-                      <div class="pricetag">
+                    <div class="thumbnail per-product-in-list">
+                      <% if (pro.saleRate > 0) { %>
+                        <div class="sale-label">
+                          Sale
+                        </div>
+                      <% } %>
+                      <a href="#"><img alt="" src="upload/<%= pro.img %>"></a>
+                      <div class="area-info-product">
+                        <div class="name-and-des">
+                          <b><%= pro.name %></b>
+                          <span><%= pro.des %></span>
+                        </div>
+                        <div class="price-and-sale">
+                          <b><%= pro.price %> SAR</b>
+                          <% if (pro.saleRate > 0) { %>
+                            <span><%= pro.saleRate %> SAR</span>
+                          <% } %>
+                        </div>
+                      </div>
+                      <div class="area-like-and-add-to-card">
+                        <div class="like" onclick="loveThis(this)">
+                          <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="add-to-card" onclick="addToCard('<%= pro._id %>', this)">
+                          <i class="fas fa-cart-plus"></i>
+                        </div>
+                      </div>
+                      <!-- <div class="pricetag">
                         <span class="spiral"></span><a href="/add-cart.<%= pro._id %>" class="productcart">ADD TO CART</a>
                         <div class="price">
                           <div class="pricenew"><%= pro.price %></div>
                         </div>
-                      </div>
+                      </div> -->
                     </div>
                   </li>
             <% }}})%>
-           
+
           </ul>
-          
+
         </div>
       </section>
   <% })%>
   <!-- Latest Product-->
 
 
-<!-- Footer -->
+<!-- Footer --> 
+<script>
+  function addToCard(id, ev) {
+    $.get(`/add-cart.${id}`, (r) => {
+      $(ev).addClass("added")
+      $('#number-items-in-cart').html(parseInt($('#number-items-in-cart').html()) + 1)
+    })
+  }
+  function loveThis(ev) {
+    $(ev).css('background', "red")
+    $(ev).find('i').css('color', '#fff')
+  }
+
+</script>
 <% include ../layout/footer.ejs %>

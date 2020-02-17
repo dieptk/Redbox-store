@@ -7,6 +7,7 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
+var moment = require('moment');
 var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcryptjs');
 
@@ -78,7 +79,141 @@ app.use(function(req, res, next){
 });
 
 
+const Boat = require('./model/Boat');
 
+
+app.get('/create-boad', (req, res) => {
+  Boat.findOne({}).exec((e, r) => {
+    if (e) {
+      res.status(500).send(JSON.stringify({state: false}))
+    } else {
+      if (r) {
+        res.status(200).send(JSON.stringify({state: true, data: r}))
+      } else {
+        const boat = new Boat({
+          name: "BOAT-DEMO",
+          tracking: []
+        })
+        boat.save((e, r) => {
+          if (e) {
+            res.status(500).send(JSON.stringify({state: false}))
+          } else {
+            res.status(200).send(JSON.stringify({state: true, data: r}))
+          }
+        })
+      }
+    }
+  })
+})
+
+const calculateDistance = (lat1, lon1, lat2, lon2) => {
+    var R = 6371; // km (change this constant to get miles)
+    var dLat = (lat2-lat1) * Math.PI / 180;
+    var dLon = (lon2-lon1) * Math.PI / 180;
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(lat1 * Math.PI / 180 ) * Math.cos(lat2 * Math.PI / 180 ) *
+        Math.sin(dLon/2) * Math.sin(dLon/2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var d = R * c;
+    return d * 1000
+}
+
+app.post('/update-location', (req, res) => {
+  Boat.findOne({}).exec((e, r) => {
+    if (e) {
+      res.status(500).send(JSON.stringify({state: false}))
+    } else {
+      if (r) {
+        if (r.tracking.length) {
+          const lastPoint = r.tracking[r.tracking.length - 1]
+          const distance = calculateDistance(lastPoint.lat, lastPoint.lng, req.body.lat, req.body.lng)
+          if (distance > 30) {
+            r.tracking.push({
+              lat: req.body.lat,
+              lng: req.body.lng,
+              speed: req.body.speed,
+              fuel: req.body.fuel,
+              dateCreate: new Date(),
+              bearing: req.body.bearing
+            })
+          }
+        } else {
+          r.tracking.push({
+            lat: req.body.lat,
+            lng: req.body.lng,
+            speed: req.body.speed,
+            fuel: req.body.fuel,
+            dateCreate: new Date(),
+            bearing: req.body.bearing
+          })
+        }
+        r.save(e => {
+          if (e) {
+            res.status(500).send(JSON.stringify({state: false}))
+          } else {
+            res.status(200).send(JSON.stringify({state: true}))
+          }
+        })
+        io.in(`BOAT DEMO`).emit('NEW LOCATION', {
+          lat: req.body.lat,
+          lng: req.body.lng,
+          speed: req.body.speed,
+          fuel: req.body.fuel,
+          dateCreate: new Date(),
+          bearing: req.body.bearing
+        });
+      } else {
+        res.status(200).send(JSON.stringify({state: false, msg: "Boat does not exist"}))
+      }
+    }
+  })
+})
+
+app.get('/get-location', (req, res) => {  
+  Boat.findOne({}).lean().exec((e, r) => {
+    if (e) {
+      res.status(500).send(JSON.stringify({state: false}))
+    } else {
+      if (r) {
+        let results = []
+        r.tracking.forEach(e => {
+          e.dateCreate = (new Date(e.dateCreate)).getTime()
+        })
+        if (req.query.time_start) {
+          r.tracking.map(e => {
+            if (req.query.time_start <= e.dateCreate) {
+              results.push(e)
+            }
+          })
+          r.tracking = results
+        }
+        if (req.query.time_end) {
+          r.tracking = []
+          results.map(e => {
+            if (req.query.time_end >= e.dateCreate) {
+              r.tracking.push(e)
+            }
+          })
+        }
+        res.status(200).send(JSON.stringify({state: true, data: r}))
+      } else {
+        res.status(200).send(JSON.stringify({state: false, msg: "Boat does not exist"}))
+      }
+    }
+  })
+})
+
+app.get('/clear-location', (req, res) => {
+  Boat.updateOne({}, {
+    tracking: []
+  }).exec((e) => {
+    if (e) {
+      res.status(500).send(JSON.stringify({state: false}))
+    } else {
+      res.status(500).send(JSON.stringify({state: true}))
+    }
+  })
+})
 
 
 app.use('/', index);

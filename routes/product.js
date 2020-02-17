@@ -52,7 +52,6 @@ router.get('/them-product.html', checkAdmin, function (req, res) {
 
 router.post('/them-product.html', checkAdmin, upload.single('hinh'), function (req, res) {
 	req.checkBody('name', 'Name is required').notEmpty();
-	//req.checkBody('hinh', 'Hình không được rổng').notEmpty();
 	req.checkBody('gia', 'Price must a number').isInt();
 	req.checkBody('des', 'Description is required').notEmpty();
     var errors = req.validationErrors();
@@ -73,7 +72,8 @@ router.post('/them-product.html', checkAdmin, upload.single('hinh'), function (r
 			cateId 			: req.body.cate,
 			des 			: req.body.des,
 			price 			: req.body.gia,
-			st 				: 0
+			st 				: 0,
+			saleRate		: req.body.sale_rate ? req.body.sale_rate : 0
 		});
 
 		pro.save().then(function(){
@@ -126,6 +126,7 @@ router.post('/:id/sua-product.html',  upload.single('hinh'), function (req, res)
 			data.des 			= req.body.des;
 			data.price 			= req.body.gia;
 			data.st 			= '0';
+			data.saleRate       = req.body.sale_rate ? req.body.sale_rate : 0
 
 			data.save();
 				req.flash('success_msg', 'Updated successfully');
