@@ -237,10 +237,10 @@ router.get('/shipments/create-return/:id', checkAdmin, function (req, res) {
           sender_email: body.data.receiver.email,
           sender_phone: body.data.receiver.phone,
           sender_address: body.data.receiver.address,
-          receiver_name: body.data.sender.name,
-          receiver_email: body.data.sender.email,
-          receiver_phone: body.data.sender.phone,
-          receiver_address: body.data.sender.address,
+          customer_name: body.data.sender.name,
+          customer_email: body.data.sender.email,
+          customer_phone: body.data.sender.phone,
+          customer_address: body.data.sender.address,
           cod_currency: body.data.cod.currency,
           cod_amount: body.data.cod.amount
         }, {
