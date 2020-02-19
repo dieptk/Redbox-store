@@ -100,10 +100,10 @@ router.post('/dat-hang.html', function(req, res) {
 				sender_email: "redboxsa@gmail.com",
 				sender_phone: "0986845623",
 				sender_address: "Riyadh",
-				receiver_name: req.body.receiver_name,
-				receiver_email: req.body.receiver_email,
-				receiver_phone: req.body.receiver_phone,
-				receiver_address: req.body.receiver_address,
+				customer_name: req.body.receiver_name,
+				customer_email: req.body.receiver_email,
+				customer_phone: req.body.receiver_phone,
+				customer_address: req.body.receiver_address,
 				cod_currency: "SAR",
 				cod_amount: amount
 			}, {
@@ -277,12 +277,12 @@ router.post('/get-nearest-points', function(req, res) {
 						id: e.id,
 						location: e.location,
 						lockers: e.lockers,
-						location_name: e.location_name,
+						location_name: e.point_name,
 						host_name: e.host_name_en,
 						location_type: e.location_type,
 						address: e.address,
 						icon: e.icon,
-						open_hour: e.open_hour
+						open_hour: '24h'
 					})
 				})
 				res.json({
