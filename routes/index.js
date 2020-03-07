@@ -105,7 +105,8 @@ router.post('/dat-hang.html', function(req, res) {
 				customer_phone: req.body.receiver_phone,
 				customer_address: req.body.receiver_address,
 				cod_currency: "SAR",
-				cod_amount: amount
+				cod_amount: amount,
+            	business_id: "5d2854dd65889422de40f2f7"
 			}, {
 				headers: {
 					'content-type': 'application/json',
