@@ -126,11 +126,11 @@ app.post('/update-location', (req, res) => {
       if (r) {
         if (r.tracking.length) {
           const lastPoint = r.tracking[r.tracking.length - 1]
-          const distance = calculateDistance(lastPoint.lat, lastPoint.lng, req.body.lat, req.body.lng)
+          const distance = calculateDistance(lastPoint.lat, lastPoint.lng, convertToDecimal(req.body.lat), convertToDecimal(req.body.lng))
           if (distance > 30) {
             r.tracking.push({
-              lat: req.body.lat,
-              lng: req.body.lng,
+              lat: convertToDecimal(req.body.lat),
+              lng: convertToDecimal(req.body.lng),
               speed: req.body.speed,
               fuel: req.body.fuel,
               dateCreate: new Date(),
@@ -139,8 +139,8 @@ app.post('/update-location', (req, res) => {
           }
         } else {
           r.tracking.push({
-            lat: req.body.lat,
-            lng: req.body.lng,
+            lat: convertToDecimal(req.body.lat),
+            lng: convertToDecimal(req.body.lng),
             speed: req.body.speed,
             fuel: req.body.fuel,
             dateCreate: new Date(),
@@ -155,8 +155,8 @@ app.post('/update-location', (req, res) => {
           }
         })
         io.in(`BOAT DEMO`).emit('NEW LOCATION', {
-          lat: req.body.lat,
-          lng: req.body.lng,
+          lat: convertToDecimal(req.body.lat),
+          lng: convertToDecimal(req.body.lng),
           speed: req.body.speed,
           fuel: req.body.fuel,
           dateCreate: new Date(),
@@ -177,11 +177,11 @@ app.post('/update-location-offline', (req, res) => {
       if (r) {
       	req.body.position.map(e => {
       		r.tracking.push({
-            lat: e.lat,
-            lng: e.lon,
+            lat: convertToDecimal(e.lat),
+            lng: convertToDecimal(e.lng),
             speed: e.speed,
             fuel: e.fuel,
-            dateCreate: new Date(e.date),
+            dateCreate: convertDateTime(e.date),
             bearing: e.bearing
           })
       	})
@@ -199,7 +199,7 @@ app.post('/update-location-offline', (req, res) => {
   })
 })
 
-app.get('/get-location', (req, res) => {  
+app.get('/get-location', (req, res) => {
   Boat.findOne({}).lean().exec((e, r) => {
     if (e) {
       res.status(500).send(JSON.stringify({state: false}))
@@ -270,5 +270,23 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+function convertToDecimal(nmea) {
+    var decimal;
+    var dd;
+    var mm;
+    dd = Math.floor(nmea/100);
+    mm = nmea - (dd*100);
+    decimal = dd + (mm/60);
+    return decimal;
+}
+
+function convertDateTime(time) {
+    var string = String(time);
+    var date = new Date(string.substring(0, 4) + '-' + string.substring(4, 6) + '-' + string.substring(6, 8) + 'T' + string.substring(8, 10) + ':' + string.substring(10, 12)
+        + ':' + string.substring(12, 14) + 'Z');
+    console.log(date.toISOString());
+    return date;
+}
 
 module.exports = app;
