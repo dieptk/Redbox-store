@@ -72,11 +72,30 @@ router.get('/chi-tiet/:name.:id.:cate.html', function(req, res) {
 const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbml6YXRpb25faWQiOiI1ZDI4NTRkZDY1ODg5NDIyZGU0MGYyZjciLCJrZXkiOiIyMDE5LTA3LTEyVDA5OjQwOjA4LjE0MVoiLCJpYXQiOjE1NjI5MjQ0MDh9.ciK9qQx7l2cBK1V9-sYVpTLZWodjdltNQ57OOH7sueI'
 const host = 'https://stage.redboxsa.com'
 
+const dataSetupTest = {
+	product: {
+		key: "",
+		host: "https://app.redboxsa.com",
+		business: ""
+	},
+	stage: {
+		key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbml6YXRpb25faWQiOiI1ZDI4NTRkZDY1ODg5NDIyZGU0MGYyZjciLCJrZXkiOiIyMDE5LTA3LTEyVDA5OjQwOjA4LjE0MVoiLCJpYXQiOjE1NjI5MjQ0MDh9.ciK9qQx7l2cBK1V9-sYVpTLZWodjdltNQ57OOH7sueI",
+		host: "https://stage.redboxsa.com",
+		business: "5d2854dd65889422de40f2f7"
+	}
+}
+
 
 router.post('/dat-hang.html', function(req, res) {
 	var giohang = new GioHang((req.session.cart) ? req.session.cart : {
 		items: {}
 	});
+	let dataServer = dataSetupTest.stage;
+	if (req.session.server) {
+		if (req.session.server == 'prod') {
+			dataServer = dataSetupTest.product;
+		}
+	}
 	var data = giohang.convertArray();
 	var items = [];
 	data.map(e => {
@@ -91,7 +110,7 @@ router.post('/dat-hang.html', function(req, res) {
 		amount = 0
 	}
 	if (req.body.type_delivery == '1') {
-		axios.post(`${host}/api/business/v1/create-shipment`, {
+		axios.post(`${dataServer.host}/api/business/v1/create-shipment`, {
 				reference: new Date().getTime(),
 				items: items,
 				size: "Small",
@@ -106,11 +125,11 @@ router.post('/dat-hang.html', function(req, res) {
 				customer_address: req.body.receiver_address,
 				cod_currency: "SAR",
 				cod_amount: amount,
-            	business_id: "5d2854dd65889422de40f2f7"
+            	business_id: dataServer.business
 			}, {
 				headers: {
 					'content-type': 'application/json',
-					"Authorization": `Bearer ${key}`
+					"Authorization": `Bearer ${dataServer.key}`
 				}
 			})
 			.then(function(response) {
@@ -194,7 +213,15 @@ router.get('/dat-hang.html', function(req, res) {
 	}
 });
 
+router.get('/switch-to-prod', function(req, res) {
+	req.session.server = 'prod';
+	res.redirect('/')
+});
 
+router.get('/switch-to-stage', function(req, res) {
+	req.session.server = 'stage';
+	res.redirect('/')
+});
 
 
 router.post('/menu', function(req, res) {

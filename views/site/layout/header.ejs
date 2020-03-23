@@ -44,6 +44,13 @@
                                             <%= numberItems ? numberItems : 0 %>
                                         </span>
                                     </li>
+                                    <li style="float: right;padding: 5px 10px;background: red;border-radius: 15px;color: #fff;margin-left: 10px;cursor: pointer;">
+                                        <%if (serverChoose == "prod") { %>
+                                            <a href="/switch-to-stage" style="background-image: unset;">Switch to Stage</a>
+                                        <% } else { %>
+                                            <a href="/switch-to-prod" style="background-image: unset;">Switch to Product</a>
+                                        <% }%>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
