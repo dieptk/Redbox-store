@@ -74,14 +74,14 @@ router.get('/chi-tiet/:name.:id.:cate.html', function(req, res) {
 
 const dataSetupTest = {
 	product: {
-		key: "",
+		key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbml6YXRpb25faWQiOiI1ZTc4NmE2ZmJkYjI4YjBjZGY5NWU2ZmIiLCJrZXkiOiIyMDIwLTAzLTIzVDA4OjUxOjQyLjcwMloiLCJpYXQiOjE1ODQ5NTM1MDJ9.FlmCPvopc6dvIyH3SpGsRE6-x3KlIGAiyTGIqVLhLOY",
 		host: "https://app.redboxsa.com",
-		business: ""
+		business: "5e786aa2bdb28b0cdf95e6fc"
 	},
 	stage: {
-		key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbml6YXRpb25faWQiOiI1ZDI4NTRkZDY1ODg5NDIyZGU0MGYyZjciLCJrZXkiOiIyMDE5LTA3LTEyVDA5OjQwOjA4LjE0MVoiLCJpYXQiOjE1NjI5MjQ0MDh9.ciK9qQx7l2cBK1V9-sYVpTLZWodjdltNQ57OOH7sueI",
+		key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbml6YXRpb25faWQiOiI1ZTc4MmQzNDMwODkyYjJhNDIzYTBkNGUiLCJrZXkiOiIyMDIwLTAzLTIzVDAzOjM5OjM5LjEwNloiLCJpYXQiOjE1ODQ5MzQ3Nzl9.tAficWh0JUz1HCHVdUz-XsmA6K6MCHx6f5ncnZmfdQQ",
 		host: "https://stage.redboxsa.com",
-		business: "5d2854dd65889422de40f2f7"
+		business: "5e782d7630892b2a423a0d50"
 	}
 }
 
