@@ -69,8 +69,8 @@ router.get('/chi-tiet/:name.:id.:cate.html', function(req, res) {
 // const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbml6YXRpb25faWQiOiI1ZDQ3ODg4ZjQyY2ViNTA5MzhhNGQzYWYiLCJrZXkiOiIyMDE5LTA4LTEyVDEwOjAzOjAzLjc4NloiLCJpYXQiOjE1NjU2MDQxODN9.7FDG5Zj4DpkeAkeziG9orPO9nan3_nBnAG66auW7JNM'
 // const host = 'http://localhost:8080'
 
-const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbml6YXRpb25faWQiOiI1ZDI4NTRkZDY1ODg5NDIyZGU0MGYyZjciLCJrZXkiOiIyMDE5LTA3LTEyVDA5OjQwOjA4LjE0MVoiLCJpYXQiOjE1NjI5MjQ0MDh9.ciK9qQx7l2cBK1V9-sYVpTLZWodjdltNQ57OOH7sueI'
-const host = 'https://stage.redboxsa.com'
+// const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbml6YXRpb25faWQiOiI1ZDI4NTRkZDY1ODg5NDIyZGU0MGYyZjciLCJrZXkiOiIyMDE5LTA3LTEyVDA5OjQwOjA4LjE0MVoiLCJpYXQiOjE1NjI5MjQ0MDh9.ciK9qQx7l2cBK1V9-sYVpTLZWodjdltNQ57OOH7sueI'
+// const host = 'https://stage.redboxsa.com'
 
 const dataSetupTest = {
 	product: {
@@ -288,13 +288,19 @@ router.post('/delCart', function(req, res) {
 });
 
 router.post('/get-nearest-points', function(req, res) {
+	let dataServer = dataSetupTest.stage;
+	if (req.session.server) {
+		if (req.session.server == 'prod') {
+			dataServer = dataSetupTest.product;
+		}
+	}
 	var request = require('request');
 	request.get({
 		headers: {
 			'content-type': 'application/x-www-form-urlencoded',
-			"Authorization": `Bearer ${key}`
+			"Authorization": `Bearer ${dataServer.key}`
 		},
-		url: `${host}/api/business/v1/get-points?lat=${req.body.lat}&lng=${req.body.lng}&distance=10000000`,
+		url: `${dataServer.host}/api/business/v1/get-points?lat=${req.body.lat}&lng=${req.body.lng}&distance=10000000`,
 	}, function(error, response, body) {
 		if (body) {
 			body = JSON.parse(body)
