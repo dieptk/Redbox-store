@@ -70,3 +70,13 @@
     <!--    </div>-->
     <!--  </div>-->
 </header>
+<%if (!isLogin) { %>
+    <div class="popup-login" style="position: fixed;width: 100%;height: 100%;z-index: 1000;background: #3e3535e0;top: 0px;left: 0px;">
+        <form action="/login-session" method="post" class="main-login" style="width: 400px;background: #fff;z-index: 20000;padding: 20px;border-radius: 3px;text-align: center;left: calc(50% - 200px);position: absolute;top: 100px;">
+            <div>
+                <input type="password" name="password" placeholder="Enter password" style="height: 35px">
+            </div>
+            <button style="padding: 10px 30px;background: #10a537;border: 0px;border-radius: 3px;color: #fff;">Submit</button>
+        </form>
+    </div>
+<% }%>

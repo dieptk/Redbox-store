@@ -159,7 +159,7 @@
         </div>
     </section>
 </div>
-<div id="myModal" class="modal fade" role="dialog" style="display: none;width: 930px;text-align: center;height: auto;max-height: unset;bottom: 3%;left: 15%;margin: 0px">
+<div id="myModal" class="modal fade" role="dialog" style="display: none;width: 930px;text-align: center;height: calc(100vh - 20px);max-height: unset;top: 10px;bottom: 10px;left: 15%;margin: 0px">
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
@@ -167,10 +167,10 @@
                 <button type="button" class="close" data-dismiss="modal" >&times;</button>
                 <h4 class="modal-title">Points Map</h4>
             </div>
-            <div class="modal-body" id="area-map" style="height: 800px; width: 900px">
+            <div class="modal-body" id="area-map" style="height: calc(100vh - 20px - 250px - 120px); width: 900px">
             </div>
-            <div class="modal-footer modal-footer-list-point" style = "background-color: #bfbfbf; height: 60px; overflow-x: auto;">
-                <div class="area-contain-point" style="position: absolute;">
+            <div class="modal-footer modal-footer-list-point" style = "background-color: #bfbfbf; height: 250px; overflow-x: auto;">
+                <div class="area-contain-point">
                 </div>
             </div>
         </div>
@@ -258,9 +258,9 @@
     					$('.modal-footer-list-point .area-contain-point').html('')
                         let w = r.data.length * 230 + 10
                         $('.modal-footer-list-point .area-contain-point').css('width', w)
-                        if (w > 930) {
-                            $('.modal-footer-list-point').css('height', 77)
-                        }
+                        // if (w > 930) {
+                        //     $('.modal-footer-list-point').css('height', 77)
+                        // }
     					r.data.map(e => {
     						let uuidTemp = uuidv4()
     						// let htmlLocker = ''
@@ -286,7 +286,7 @@
 					            			</div>
 					            		</div>
 					            		<div class="pp-more">
-					            			<div class="ppm-address">
+					            			<div class="ppm-address" style="height: 60px">
 					            				<i class="fas fa-map-marker-alt"></i>
 					            				<span>${e.address.street} - ${e.address.district} - ${e.address.city}</span>
 					            			</div>

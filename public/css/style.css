@@ -3110,10 +3110,7 @@ table th {
     padding: 10px;
     background: #fff;
     border-radius: 10px;
-    height: 40px;
     overflow: hidden;
-    position: absolute;
-    bottom: -60px;
 }
 .per-point:hover {
     cursor: pointer;
@@ -3137,6 +3134,8 @@ table th {
     float: left;
     width: 100%;
     color: #BB1E10;
+    height: 60px;
+    overflow: hidden;
 }
 .per-point .pp-main .pp-main-right span{
     font-size: 12px;
