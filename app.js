@@ -247,6 +247,7 @@ app.get('/clear-location', (req, res) => {
   })
 })
 
+app.use('/', index);
 app.use('/users', users);
 app.use('/admin', admin);
 app.use('/admin/cate', cate);
