@@ -76,6 +76,7 @@ app.use(function(req, res, next){
 	res.locals.error_msg = req.flash('error_msg');
 	res.locals.error = req.flash('error');
   res.locals.serverChoose = req.session.server
+  res.locals.isLogin = req.session.isLogin
 	next();
 });
 
@@ -245,7 +246,6 @@ app.get('/clear-location', (req, res) => {
     }
   })
 })
-
 
 app.use('/', index);
 app.use('/users', users);

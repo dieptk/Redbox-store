@@ -72,6 +72,7 @@ router.get('/chi-tiet/:name.:id.:cate.html', function(req, res) {
 // const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbml6YXRpb25faWQiOiI1ZDI4NTRkZDY1ODg5NDIyZGU0MGYyZjciLCJrZXkiOiIyMDE5LTA3LTEyVDA5OjQwOjA4LjE0MVoiLCJpYXQiOjE1NjI5MjQ0MDh9.ciK9qQx7l2cBK1V9-sYVpTLZWodjdltNQ57OOH7sueI'
 // const host = 'https://stage.redboxsa.com'
 
+const passwordToUse = '123456789'
 const dataSetupTest = {
 	product: {
 		key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbml6YXRpb25faWQiOiI1ZTc4NmE2ZmJkYjI4YjBjZGY5NWU2ZmIiLCJrZXkiOiIyMDIwLTAzLTIzVDA4OjUxOjQyLjcwMloiLCJpYXQiOjE1ODQ5NTM1MDJ9.FlmCPvopc6dvIyH3SpGsRE6-x3KlIGAiyTGIqVLhLOY",
@@ -87,106 +88,116 @@ const dataSetupTest = {
 
 
 router.post('/dat-hang.html', function(req, res) {
-	var giohang = new GioHang((req.session.cart) ? req.session.cart : {
-		items: {}
-	});
-	let dataServer = dataSetupTest.stage;
-	if (req.session.server) {
-		if (req.session.server == 'prod') {
-			dataServer = dataSetupTest.product;
+	if (req.session.isLogin) {
+		var giohang = new GioHang((req.session.cart) ? req.session.cart : {
+			items: {}
+		});
+		let dataServer = dataSetupTest.stage;
+		if (req.session.server) {
+			if (req.session.server == 'prod') {
+				dataServer = dataSetupTest.product;
+			}
 		}
-	}
-	var data = giohang.convertArray();
-	var items = [];
-	data.map(e => {
-		e.item.quantity = e.soluong
-		items.push(e.item)
-	})
-	var amount = 0
-	data.map(e => {
-		amount += e.tien
-	})
-	if (req.body.pay_type == "debit") {
-		amount = 0
-	}
-	if (req.body.type_delivery == '1') {
-		axios.post(`${dataServer.host}/api/business/v1/create-shipment`, {
-				reference: new Date().getTime(),
-				items: items,
-				size: "Small",
-				point_id: req.body.point,
-				sender_name: "Redbox store",
-				sender_email: "redboxsa@gmail.com",
-				sender_phone: "0986845623",
-				sender_address: "Riyadh",
-				customer_name: req.body.receiver_name,
-				customer_email: req.body.receiver_email,
-				customer_phone: req.body.receiver_phone,
-				customer_address: req.body.receiver_address,
-				cod_currency: "SAR",
-				cod_amount: amount,
-            	business_id: dataServer.business
-			}, {
-				headers: {
-					'content-type': 'application/json',
-					"Authorization": `Bearer ${dataServer.key}`
-				}
-			})
-			.then(function(response) {
-				var data = response.data;
-				if (data) {
-					if (data.success) {
-						var cart = new Cart({
-							name: req.body.name,
-							email: req.body.email,
-							sdt: req.body.phone,
-							msg: req.body.message,
-							cart: data,
-							st: 0
-						});
+		var data = giohang.convertArray();
+		var items = [];
+		data.map(e => {
+			e.item.quantity = e.soluong
+			items.push(e.item)
+		})
+		var amount = 0
+		data.map(e => {
+			amount += e.tien
+		})
+		if (req.body.pay_type == "debit") {
+			amount = 0
+		}
+		if (req.body.type_delivery == '1') {
+			axios.post(`${dataServer.host}/api/business/v1/create-shipment`, {
+					reference: new Date().getTime(),
+					items: items,
+					size: "Small",
+					point_id: req.body.point,
+					sender_name: "Redbox store",
+					sender_email: "redboxsa@gmail.com",
+					sender_phone: "0986845623",
+					sender_address: "Riyadh",
+					customer_name: req.body.receiver_name,
+					customer_email: req.body.receiver_email,
+					customer_phone: req.body.receiver_phone,
+					customer_address: req.body.receiver_address,
+					cod_currency: "SAR",
+					cod_amount: amount,
+	            	business_id: dataServer.business
+				}, {
+					headers: {
+						'content-type': 'application/json',
+						"Authorization": `Bearer ${dataServer.key}`
+					}
+				})
+				.then(function(response) {
+					var data = response.data;
+					if (data) {
+						if (data.success) {
+							var cart = new Cart({
+								name: req.body.name,
+								email: req.body.email,
+								sdt: req.body.phone,
+								msg: req.body.message,
+								cart: data,
+								st: 0
+							});
 
-						cart.save().then(function() {
-							req.flash('success_msg', "Create success");
-							req.session.cart = {
-								items: {}
-							};
+							cart.save().then(function() {
+								req.flash('success_msg', "Create success");
+								req.session.cart = {
+									items: {}
+								};
+								res.redirect('/gio-hang.html');
+							});
+						} else {
+							req.flash('success_msg', data.msg);
 							res.redirect('/gio-hang.html');
-						});
+						}
 					} else {
-						req.flash('success_msg', data.msg);
+						req.flash('success_msg', "Error");
 						res.redirect('/gio-hang.html');
 					}
-				} else {
+				})
+				.catch(function(error) {
 					req.flash('success_msg', "Error");
 					res.redirect('/gio-hang.html');
-				}
-			})
-			.catch(function(error) {
-				req.flash('success_msg', "Error");
+				});
+		} else {
+			var cart = new Cart({
+				name: req.body.name,
+				email: req.body.email,
+				sdt: req.body.phone,
+				msg: req.body.message,
+				cart: data,
+				st: 0
+			});
+
+			cart.save().then(function() {
+				req.session.cart = {
+					items: {}
+				};
+				req.flash('success_msg', "Create success");
 				res.redirect('/gio-hang.html');
 			});
+		}
 	} else {
-		var cart = new Cart({
-			name: req.body.name,
-			email: req.body.email,
-			sdt: req.body.phone,
-			msg: req.body.message,
-			cart: data,
-			st: 0
-		});
-
-		cart.save().then(function() {
-			req.session.cart = {
-				items: {}
-			};
-			req.flash('success_msg', "Create success");
-			res.redirect('/gio-hang.html');
-		});
+		req.flash('success_msg', "Error");
+		res.redirect('/');
 	}
 
 });
 
-
+router.post('/login-session', function(req, res) {
+	if (req.body.password == passwordToUse) {
+		req.session.isLogin = true;
+	}
+	res.redirect('/')
+});
 
 router.get('/dat-hang.html', function(req, res) {
 	var giohang = new GioHang((req.session.cart) ? req.session.cart : {
